@@ -65,7 +65,7 @@ class Accordion extends Component {
             isOpen={!!openSections[child.props.label]}
             label={child.props.label}
             onClick={onClick}
-            key={Math.random(1, 100)}
+            key={Math.random() * 100}
           >
             {child.props.children}
           </AccordionSection>
