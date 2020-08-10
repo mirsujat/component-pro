@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 
 import AccordionSection from "./AccordionSection";
 
 class Accordion extends Component {
-  static propTypes = {
-    allowMultipleOpen: PropTypes.bool,
-    children: PropTypes.instanceOf(Object).isRequired,
-  };
-
   static defaultProps = {
     allowMultipleOpen: false,
   };
@@ -33,6 +27,7 @@ class Accordion extends Component {
       state: { openSections },
     } = this;
 
+    // this will toggle the value of isOpen as true or false
     const isOpen = !!openSections[label];
 
     if (allowMultipleOpen) {
