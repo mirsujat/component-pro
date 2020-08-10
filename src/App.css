@@ -1,5 +1,31 @@
 .container {
-  background-color: #fae042;
-  border: 1px soild #008f68;
-  padding: 5px 10px;
+  display: block;
+  height: auto;
+  width: auto;
+  background-color: transparent;
+  border: 1px solid rgba(119, 118, 118, 0.2);
+}
+
+.accord_section {
+  display: block;
+  border-bottom: 1px solid rgba(61, 61, 61, 0.2);
+}
+
+.accord_label {
+  display: block;
+  background-color: rgba(119, 118, 118, 0.4);
+  padding: 8px 15px;
+}
+.accord_label:hover {
+  background-color: rgba(119, 118, 118, 0.6);
+}
+.accord_content {
+  display: block;
+  padding: 8px 15px;
+}
+.plus,
+.minus {
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 0.8;
 }
