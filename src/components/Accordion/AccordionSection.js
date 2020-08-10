@@ -6,15 +6,19 @@ const AccordionSection = (props) => {
   };
 
   return (
-    <div className="container">
-      <div onClick={onClick} style={{ cursor: "pointer" }}>
+    <div className="accord_section">
+      <div
+        className="accord_label"
+        onClick={onClick}
+        style={{ cursor: "pointer" }}
+      >
         {props.label}
         <div style={{ float: "right" }}>
-          {!props.isOpen && <span>&#10010;</span>}
-          {props.isOpen && <span>&#10134;</span>}
+          {!props.isOpen && <span className="plus">&#43;</span>}
+          {props.isOpen && <span className="minus">&#8722;</span>}
         </div>
       </div>
-      {props.isOpen && <div>{props.children}</div>}
+      {props.isOpen && <div className="accord_content">{props.children}</div>}
     </div>
   );
 };
