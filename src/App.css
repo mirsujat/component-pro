@@ -54,3 +54,8 @@
   height: 200px;
   transition: width 2s, height 4s;
 }
+
+/* TODO CSS */
+.accord_title {
+  cursor: pointer;
+}
