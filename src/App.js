@@ -9,18 +9,42 @@ function App() {
     <div data-testid="app">
       <h1>Hello World</h1>
       <br></br>
+      <h2>Default Accordion</h2>
       <TodoAccord>
-        <div>
-          <div>title one</div>
-          <p>Place some text here</p>
+        <div title="TITLE ONE">
+          <p>
+            SECTION ONE Place some text here. This will be the section content!!
+          </p>
         </div>
-        <div>
-          <div>title two</div>
-          <p>Place some text here</p>
+        <div title="TITLE TWO">
+          <p>
+            SECTION TWO Place some text here. This will be the section content!!
+          </p>
         </div>
-        <div>
-          <div>title three</div>
-          <p>Place some text here</p>
+        <div title="TITLE THREE">
+          <p>
+            SECTION THREE Place some text here. This will be the section
+            content!!
+          </p>
+        </div>
+      </TodoAccord>
+      <h2>Multiple Open</h2>
+      <TodoAccord allowMultipleOpen>
+        <div title="TITLE ONE">
+          <p>
+            SECTION ONE Place some text here. This will be the section content!!
+          </p>
+        </div>
+        <div title="TITLE TWO">
+          <p>
+            SECTION TWO Place some text here. This will be the section content!!
+          </p>
+        </div>
+        <div title="TITLE THREE">
+          <p>
+            SECTION THREE Place some text here. This will be the section
+            content!!
+          </p>
         </div>
       </TodoAccord>
     </div>
