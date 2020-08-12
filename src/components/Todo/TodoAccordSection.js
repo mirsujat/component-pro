@@ -3,10 +3,7 @@ import React from "react";
 const TodoAccordSection = (props) => {
   return (
     <div className="accord_section">
-      <div className="title">
-        {props.title}
-        <div className="content">{props.children}</div>
-      </div>
+      <h1>accordion section</h1>
     </div>
   );
 };
