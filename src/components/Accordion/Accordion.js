@@ -27,22 +27,12 @@ class Accordion extends Component {
       state: { openSections },
     } = this;
 
-    // this will toggle the value of isOpen as true or false
     const isOpen = !!openSections[label];
 
     if (allowMultipleOpen) {
-      this.setState({
-        openSections: {
-          ...openSections,
-          [label]: !isOpen,
-        },
-      });
+      this.setState({ openSections: { ...openSections, [label]: !isOpen } });
     } else {
-      this.setState({
-        openSections: {
-          [label]: !isOpen,
-        },
-      });
+      this.setState({ openSections: { [label]: !isOpen } });
     }
   };
 
