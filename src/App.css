@@ -60,13 +60,10 @@
   background-color: white;
   border: solid #ccc;
   border-width: 1px 1px 0 1px;
-  transition: width 2s, height 4s;
 }
 .tab-content {
   display: block;
-  width: auto;
-  height: 200px;
-  transition: width 2s, height 4s;
+  padding: 15px;
 }
 
 /* TODO CSS */
