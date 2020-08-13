@@ -1,9 +1,7 @@
 import React from "react";
 
-// import TodoAccord from "./components/Todo/Accord/TodoAccord";
-
 import "./App.css";
-import Tabs from "./components/Tabs/Tabs";
+import Tab from "./components/Todo/Tab/Tab";
 
 function App() {
   return (
@@ -11,17 +9,17 @@ function App() {
       <h1>Hello World</h1>
       <br></br>
       <h3>Tabs</h3>
-      <Tabs>
-        <div label="tab one">
-          <p>Hello from tab one</p>
+      <Tab>
+        <div label="Tab One">
+          <p>Hello From Tab One</p>
         </div>
-        <div label="tab two">
-          <p>Hello from tab two</p>
+        <div label="Tab Two">
+          <p>Hi! Tab Two</p>
         </div>
-        <div label="tab three">
-          <p>Hello from tab three</p>
+        <div label="Tab three">
+          <p>it's me Tab Three</p>
         </div>
-      </Tabs>
+      </Tab>
     </div>
   );
 }
