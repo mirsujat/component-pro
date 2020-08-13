@@ -1,6 +1,6 @@
 import React from "react";
 
-import TodoAccord from "./components/Todo/TodoAccord";
+import TodoAccord from "./components/Todo/Accord/TodoAccord";
 
 import "./App.css";
 
