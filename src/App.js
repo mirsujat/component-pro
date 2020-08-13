@@ -1,52 +1,27 @@
 import React from "react";
 
-import TodoAccord from "./components/Todo/Accord/TodoAccord";
+// import TodoAccord from "./components/Todo/Accord/TodoAccord";
 
 import "./App.css";
+import Tabs from "./components/Tabs/Tabs";
 
 function App() {
   return (
-    <div data-testid="app">
+    <div data-testid="app" className="app">
       <h1>Hello World</h1>
       <br></br>
-      <h2>Default Accordion</h2>
-      <TodoAccord>
-        <div title="TITLE ONE">
-          <p>
-            SECTION ONE Place some text here. This will be the section content!!
-          </p>
+      <h3>Tabs</h3>
+      <Tabs>
+        <div label="tab one">
+          <p>Hello from tab one</p>
         </div>
-        <div title="TITLE TWO">
-          <p>
-            SECTION TWO Place some text here. This will be the section content!!
-          </p>
+        <div label="tab two">
+          <p>Hello from tab two</p>
         </div>
-        <div title="TITLE THREE">
-          <p>
-            SECTION THREE Place some text here. This will be the section
-            content!!
-          </p>
+        <div label="tab three">
+          <p>Hello from tab three</p>
         </div>
-      </TodoAccord>
-      <h2>Multiple Open</h2>
-      <TodoAccord allowMultipleOpen>
-        <div title="TITLE ONE">
-          <p>
-            SECTION ONE Place some text here. This will be the section content!!
-          </p>
-        </div>
-        <div title="TITLE TWO">
-          <p>
-            SECTION TWO Place some text here. This will be the section content!!
-          </p>
-        </div>
-        <div title="TITLE THREE">
-          <p>
-            SECTION THREE Place some text here. This will be the section
-            content!!
-          </p>
-        </div>
-      </TodoAccord>
+      </Tabs>
     </div>
   );
 }
