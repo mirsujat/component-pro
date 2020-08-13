@@ -17,12 +17,18 @@ class TodoAccord extends Component {
     const { openSections } = this.state;
     const isopen = openSections[title];
     if (this.props.allowMultipleOpen) {
-      this.setState({ openSections: { ...openSections, [title]: !isopen } });
+      this.setState({
+        openSections: {
+          ...openSections,
+          [title]: !isopen,
+        },
+      });
     } else {
-      this.setState({ openSections: { [title]: !isopen } });
+      this.setState({
+        openSections: { [title]: !isopen },
+      });
     }
   };
-
   render() {
     const { children } = this.props;
     const { openSections } = this.state;
