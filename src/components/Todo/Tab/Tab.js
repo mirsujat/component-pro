@@ -13,6 +13,14 @@ class Tab extends Component {
   // create a handleClick method to update activeTab status defined in state obj -done
   // conditonally show the currently active tab
 
+  //performance optimisation
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.activeTab !== nextState.activeTab) {
+      return true;
+    }
+    return false;
+  }
+
   handleClick = (tab) => {
     this.setState({ activeTab: tab });
   };
