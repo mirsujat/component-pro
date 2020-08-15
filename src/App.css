@@ -70,3 +70,11 @@
 .accord_title {
   cursor: pointer;
 }
+
+/* Multiple select */
+.custom_select {
+  display: block;
+  width: 200px;
+  height: 30px;
+  padding: 4px 15px;
+}
