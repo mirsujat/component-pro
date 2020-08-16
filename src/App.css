@@ -116,7 +116,9 @@ li:hover {
   display: block;
   position: relative;
   padding-left: 35px;
-  margin-bottom: 12px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  margin-left: 6px;
   cursor: pointer;
   font-size: 18px;
   -webkit-user-select: none;

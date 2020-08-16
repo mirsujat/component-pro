@@ -6,7 +6,12 @@ import MultiSelect from "./components/Todo/MultiSelect/MultiSelect";
 
 class App extends Component {
   state = {
-    options: ["Apple", "Banana", "Cherry", "Mango"],
+    options: [
+      { id: 1, value: "Apple" },
+      { id: 2, value: "Orange" },
+      { id: 3, value: "Banana" },
+      { id: 4, value: "Pineaple" },
+    ],
   };
   render() {
     return (
