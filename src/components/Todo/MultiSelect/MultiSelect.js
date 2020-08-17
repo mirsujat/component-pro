@@ -4,13 +4,15 @@ class MultiSelect extends Component {
   static defaultProps = {
     options: [],
     isMultiple: false,
+    isObject: true,
+    displayValue: "model",
     selectedValues: [],
   };
   constructor(props) {
     super(props);
     this.state = {
       options: props.options,
-      // selectedValues: Object.assign([], props.selectedValues),
+      selectedValues: Object.assign([], props.selectedValues),
       isOpen: false,
     };
     this.toggleContainer = React.createRef();
@@ -43,7 +45,7 @@ class MultiSelect extends Component {
   }
   selectItemHandler = (id) => {
     const { onSelect } = this.props;
-    onSelect(id);
+    return onSelect(id);
   };
 
   renderOptions() {
@@ -71,7 +73,7 @@ class MultiSelect extends Component {
                   >
                     <label className="custom_checkbox">
                       {option.name}
-                      <input type="checkbox" readOnly />
+                      <input type="checkbox" readOnly checked={option} />
                       <span className="checkmark"></span>
                     </label>
                   </li>

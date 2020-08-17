@@ -27,19 +27,30 @@ class App extends Component {
 
     const index = tempOptions.indexOf(this.getItem(id));
     const selectedOption = tempOptions[index];
-
-    this.setState(() => {
-      return {
-        selectedValues: [...selectedValues, selectedOption],
-      };
-    });
+    if (selectedValues.length === 0) {
+      this.setState(() => {
+        return { selectedValues: [selectedOption] };
+      });
+    }
+    if (selectedValues.length > 0) {
+      selectedValues.forEach((option) => {
+        if (option.id !== id) {
+          this.setState(() => {
+            return { selectedValues: [...selectedValues, selectedOption] };
+          });
+          return;
+        }
+      });
+    }
   };
+
   onRemove = () => {
     console.log("click from onRemove");
   };
 
   render() {
     console.log("select value from app:", this.state.selectedValues.length);
+
     return (
       <div data-testid="app" className="app">
         <h1>Hello World</h1>
@@ -50,6 +61,7 @@ class App extends Component {
           selectedValues={this.state.selectedValues}
           onSelect={this.onSelect}
           onRemove={this.onRemove}
+          displayValue="name"
         ></MultiSelect>
       </div>
     );
