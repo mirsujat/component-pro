@@ -17,15 +17,29 @@ class App extends Component {
     ...options,
     selectedValues: [],
   };
+  getItem = (id) => {
+    const option = this.state.options.find((item) => item.id === id);
+    return option;
+  };
+  onSelect = (id) => {
+    const tempOptions = [...this.state.options];
+    const { selectedValues } = this.state;
 
-  onSelect = () => {
-    console.log("click from onSelect");
+    const index = tempOptions.indexOf(this.getItem(id));
+    const selectedOption = tempOptions[index];
+
+    this.setState(() => {
+      return {
+        selectedValues: [...selectedValues, selectedOption],
+      };
+    });
   };
   onRemove = () => {
     console.log("click from onRemove");
   };
 
   render() {
+    console.log("select value from app:", this.state.selectedValues.length);
     return (
       <div data-testid="app" className="app">
         <h1>Hello World</h1>
