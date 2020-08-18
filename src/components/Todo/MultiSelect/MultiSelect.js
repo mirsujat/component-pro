@@ -25,26 +25,24 @@ class MultiSelect extends Component {
     window.addEventListener("click", this.onClickOutsideHandler);
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { options, selectedValues } = this.props;
-  //   const {
-  //     options: prevOptions,
-  //     selectedValues: prevSelectedvalues,
-  //   } = prevProps;
-  //   if (JSON.stringify(prevOptions) !== JSON.stringify(options)) {
-  //     this.setState({
-  //       options,
-  //       filteredOptions: options,
-  //       unfilteredOptions: options,
-  //     });
-  //   }
-  //   if (JSON.stringify(prevSelectedvalues) !== JSON.stringify(selectedValues)) {
-  //     this.setState({
-  //       selectedValues: Object.assign([], selectedValues),
-  //       preSelectedValues: Object.assign([], selectedValues),
-  //     });
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    const { options, selectedValues } = this.props;
+    const {
+      options: prevOptions,
+      selectedValues: prevSelectedvalues,
+    } = prevProps;
+    if (JSON.stringify(prevOptions) !== JSON.stringify(options)) {
+      this.setState({
+        options,
+      });
+    }
+    if (JSON.stringify(prevSelectedvalues) !== JSON.stringify(selectedValues)) {
+      this.setState({
+        selectedValues: Object.assign([], selectedValues),
+        preSelectedValues: Object.assign([], selectedValues),
+      });
+    }
+  }
 
   componentWillUnmount() {
     window.removeEventListener("click", this.onClickOutsideHandler);
@@ -77,9 +75,6 @@ class MultiSelect extends Component {
     return selectedValues.filter((i) => i.id === id).length > 0;
   }
 
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-  };
   renderOptions() {
     const { options } = this.state;
     const { isMultiple } = this.props;
@@ -97,18 +92,13 @@ class MultiSelect extends Component {
             <ul className={this.state.isOpen ? "option_box" : "hidden"}>
               {this.state.isOpen &&
                 options.map((option, i) => (
-                  <li
-                    key={option.id}
-                    className="single_select_option"
-                    onClick={() => this.selectItemHandler(option.id)}
-                  >
-                    <label className="custom_checkbox">
+                  <li key={option.id} className="single_select_option">
+                    <label
+                      className="custom_checkbox"
+                      onClick={() => this.selectItemHandler(option.id)}
+                    >
                       {option.name}
-                      <input
-                        type="checkbox"
-                        readOnly
-                        onChange={this.handleChange}
-                      />
+                      <input type="checkbox" readOnly onChange={() => {}} />
                       <span className="checkmark"></span>
                     </label>
                   </li>
