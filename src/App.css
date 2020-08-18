@@ -107,10 +107,12 @@ li {
   display: block;
   list-style: none;
   width: 100%;
+  cursor: pointer;
 }
 li:hover {
   background-color: rgba(119, 118, 118, 0.2);
 }
+
 /* Customize the label (the container) */
 .custom_checkbox {
   display: block;

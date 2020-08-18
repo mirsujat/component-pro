@@ -12,11 +12,23 @@ const options = {
     { id: 4, name: "Pineaple" },
   ],
 };
-class App extends Component {
+class App extends React.PureComponent {
   state = {
     ...options,
     selectedValues: [],
   };
+  // componentDidUpdate(prevState) {
+  //   const { selectedValues } = this.state;
+  //   const { selectedValues: prevSelectedvalues } = prevState;
+
+  //   if (JSON.stringify(prevSelectedvalues) !== JSON.stringify(selectedValues)) {
+  //     this.setState({
+  //       selectedValues: Object.assign([], selectedValues),
+  //       preSelectedValues: Object.assign([], selectedValues),
+  //     });
+  //   }
+  // }
+
   getItem = (id) => {
     const option = this.state.options.find((item) => item.id === id);
     return option;
@@ -24,22 +36,15 @@ class App extends Component {
   onSelect = (id) => {
     const tempOptions = [...this.state.options];
     const { selectedValues } = this.state;
-
     const index = tempOptions.indexOf(this.getItem(id));
     const selectedOption = tempOptions[index];
     if (selectedValues.length === 0) {
       this.setState(() => {
         return { selectedValues: [selectedOption] };
       });
-    }
-    if (selectedValues.length > 0) {
-      selectedValues.forEach((option) => {
-        if (option.id !== id) {
-          this.setState(() => {
-            return { selectedValues: [...selectedValues, selectedOption] };
-          });
-          return;
-        }
+    } else {
+      this.setState(() => {
+        return { selectedValues: [...selectedValues, selectedOption] };
       });
     }
   };

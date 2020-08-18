@@ -13,10 +13,10 @@ class MultiSelect extends Component {
     this.state = {
       options: props.options,
       selectedValues: Object.assign([], props.selectedValues),
+      selectedOption: null,
       isOpen: false,
     };
     this.toggleContainer = React.createRef();
-
     this.onClickHandler = this.onClickHandler.bind(this);
     this.onClickOutsideHandler = this.onClickOutsideHandler.bind(this);
   }
@@ -24,6 +24,27 @@ class MultiSelect extends Component {
   componentDidMount() {
     window.addEventListener("click", this.onClickOutsideHandler);
   }
+
+  // componentDidUpdate(prevProps) {
+  //   const { options, selectedValues } = this.props;
+  //   const {
+  //     options: prevOptions,
+  //     selectedValues: prevSelectedvalues,
+  //   } = prevProps;
+  //   if (JSON.stringify(prevOptions) !== JSON.stringify(options)) {
+  //     this.setState({
+  //       options,
+  //       filteredOptions: options,
+  //       unfilteredOptions: options,
+  //     });
+  //   }
+  //   if (JSON.stringify(prevSelectedvalues) !== JSON.stringify(selectedValues)) {
+  //     this.setState({
+  //       selectedValues: Object.assign([], selectedValues),
+  //       preSelectedValues: Object.assign([], selectedValues),
+  //     });
+  //   }
+  // }
 
   componentWillUnmount() {
     window.removeEventListener("click", this.onClickOutsideHandler);
@@ -45,9 +66,20 @@ class MultiSelect extends Component {
   }
   selectItemHandler = (id) => {
     const { onSelect } = this.props;
-    return onSelect(id);
+    if (this.isSelectedValue(id)) {
+      return;
+    }
+    onSelect(id);
   };
 
+  isSelectedValue(id) {
+    const { selectedValues } = this.state;
+    return selectedValues.filter((i) => i.id === id).length > 0;
+  }
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+  };
   renderOptions() {
     const { options } = this.state;
     const { isMultiple } = this.props;
@@ -68,12 +100,15 @@ class MultiSelect extends Component {
                   <li
                     key={option.id}
                     className="single_select_option"
-                    style={{ cursor: "pointer" }}
                     onClick={() => this.selectItemHandler(option.id)}
                   >
                     <label className="custom_checkbox">
                       {option.name}
-                      <input type="checkbox" readOnly checked={option} />
+                      <input
+                        type="checkbox"
+                        readOnly
+                        onChange={this.handleChange}
+                      />
                       <span className="checkmark"></span>
                     </label>
                   </li>
