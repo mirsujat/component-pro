@@ -112,6 +112,9 @@ li {
 li:hover {
   background-color: rgba(119, 118, 118, 0.2);
 }
+.selected{
+  background-color: rgba(119, 118, 118, 0.4);
+}
 
 /* Customize the label (the container) */
 .custom_checkbox {

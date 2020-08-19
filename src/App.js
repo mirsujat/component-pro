@@ -12,7 +12,7 @@ const options = {
     { id: 4, name: "Pineaple" },
   ],
 };
-class App extends React.PureComponent {
+class App extends Component {
   state = {
     ...options,
     selectedValues: [],

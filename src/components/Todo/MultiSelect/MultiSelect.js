@@ -62,11 +62,13 @@ class MultiSelect extends Component {
       this.setState({ isOpen: false });
     }
   }
+
   selectItemHandler = (id) => {
     const { onSelect } = this.props;
     if (this.isSelectedValue(id)) {
       return;
     }
+
     onSelect(id);
   };
 
@@ -92,13 +94,14 @@ class MultiSelect extends Component {
             <ul className={this.state.isOpen ? "option_box" : "hidden"}>
               {this.state.isOpen &&
                 options.map((option, i) => (
-                  <li key={option.id} className="single_select_option">
-                    <label
-                      className="custom_checkbox"
-                      onClick={() => this.selectItemHandler(option.id)}
-                    >
+                  <li
+                    key={option.id}
+                    className="single-select-option"
+                    onClick={() => this.selectItemHandler(option.id)}
+                  >
+                    <label className="custom_checkbox">
                       {option.name}
-                      <input type="checkbox" readOnly onChange={() => {}} />
+                      <input type="checkbox" onChange={() => {}} />
                       <span className="checkmark"></span>
                     </label>
                   </li>
