@@ -96,12 +96,12 @@ class MultiSelect extends Component {
                 options.map((option, i) => (
                   <li
                     key={option.id}
-                    className="single-select-option"
+                    className="single_select_option"
                     onClick={() => this.selectItemHandler(option.id)}
                   >
                     <label className="custom_checkbox">
                       {option.name}
-                      <input type="checkbox" onChange={() => {}} />
+                      <input type="checkbox" />
                       <span className="checkmark"></span>
                     </label>
                   </li>
