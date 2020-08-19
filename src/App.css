@@ -72,6 +72,21 @@
 }
 
 /* Multiple select */
+.multiselect_container {
+  display: block;
+  width: 200px;
+  height: auto;
+}
+.chip_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  width: 200px;
+  height: auto;
+  padding: 6px;
+  border: 1px solid rgba(119, 118, 118, 0.2);
+}
 .custom_select {
   display: block;
   width: 200px;
@@ -112,7 +127,7 @@ li {
 li:hover {
   background-color: rgba(119, 118, 118, 0.2);
 }
-.selected{
+.selected {
   background-color: rgba(119, 118, 118, 0.4);
 }
 
@@ -184,4 +199,37 @@ li:hover {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+/* Chips CSS */
+.chip {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  margin: 2px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+}
+
+.chip img {
+  float: left;
+  margin: 0 10px 0 -25px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.closebtn {
+  padding-left: 10px;
+  color: #888;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #000;
 }

@@ -76,37 +76,59 @@ class MultiSelect extends Component {
     const { selectedValues } = this.state;
     return selectedValues.filter((i) => i.id === id).length > 0;
   }
+  chips() {
+    const { selectedValues } = this.state;
+    let chip = null;
+    if (selectedValues.length > 0) {
+      chip = selectedValues.map((item) => {
+        const { name, id } = item;
+        return (
+          <div className="chip" key={id}>
+            <span className="chip_text">{name}</span>
+            <span className="closebtn">&times;</span>
+          </div>
+        );
+      });
+    }
+    return chip;
+  }
 
   renderOptions() {
-    const { options } = this.state;
+    const { options, selectedValues } = this.state;
     const { isMultiple } = this.props;
     if (isMultiple) {
       return (
-        <div className="custom_select" ref={this.toggleContainer}>
-          <div className="select_box" style={{ width: 200 }}>
-            <input
-              className="select_input"
-              type="text"
-              placeholder="Select an Option"
-              onClick={this.onClickHandler}
-            ></input>
+        <div className="multiselect_container">
+          {selectedValues.length > 0 ? (
+            <div className="chip_content">{this.chips()}</div>
+          ) : null}
 
-            <ul className={this.state.isOpen ? "option_box" : "hidden"}>
-              {this.state.isOpen &&
-                options.map((option, i) => (
-                  <li
-                    key={option.id}
-                    className="single_select_option"
-                    onClick={() => this.selectItemHandler(option.id)}
-                  >
-                    <label className="custom_checkbox">
-                      {option.name}
-                      <input type="checkbox" />
-                      <span className="checkmark"></span>
-                    </label>
-                  </li>
-                ))}
-            </ul>
+          <div className="custom_select" ref={this.toggleContainer}>
+            <div className="select_box" style={{ width: 200 }}>
+              <input
+                className="select_input"
+                type="text"
+                placeholder="Select an Option"
+                onClick={this.onClickHandler}
+              ></input>
+
+              <ul className={this.state.isOpen ? "option_box" : "hidden"}>
+                {this.state.isOpen &&
+                  options.map((option, i) => (
+                    <li
+                      key={option.id}
+                      className="single_select_option"
+                      onClick={() => this.selectItemHandler(option.id)}
+                    >
+                      <label className="custom_checkbox">
+                        {option.name}
+                        <input type="checkbox" readOnly onChange={() => {}} />
+                        <span className="checkmark"></span>
+                      </label>
+                    </li>
+                  ))}
+              </ul>
+            </div>
           </div>
         </div>
       );
