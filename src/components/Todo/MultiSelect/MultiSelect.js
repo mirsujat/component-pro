@@ -76,6 +76,12 @@ class MultiSelect extends Component {
     const { selectedValues } = this.state;
     return selectedValues.filter((i) => i.id === id).length > 0;
   }
+
+  onChangeHandler = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
   chips() {
     const { selectedValues } = this.state;
     let chip = null;
@@ -98,14 +104,14 @@ class MultiSelect extends Component {
     const { isMultiple } = this.props;
     if (isMultiple) {
       return (
-        <div className="multiselect_container">
+        <div className="multiselect_container" ref={this.toggleContainer}>
           {selectedValues.length > 0 ? (
             <div className="chip_content">{this.chips()}</div>
           ) : (
             <div className="empty_text">No option selected</div>
           )}
 
-          <div className="custom_select" ref={this.toggleContainer}>
+          <div className="custom_select">
             <div className="select_box" style={{ width: 200 }}>
               <input
                 className="select_input"
@@ -120,11 +126,15 @@ class MultiSelect extends Component {
                     <li
                       key={option.id}
                       className="single_select_option"
-                      onClick={() => this.selectItemHandler(option.id)}
+                      // onClick={() => this.selectItemHandler(option.id)}
                     >
                       <label className="custom_checkbox">
                         {option.name}
-                        <input type="checkbox" readOnly onChange={() => {}} />
+                        <input
+                          type="checkbox"
+                          name={option.name}
+                          onChange={this.onChangeHandler}
+                        />
                         <span className="checkmark"></span>
                       </label>
                     </li>
