@@ -101,7 +101,9 @@ class MultiSelect extends Component {
         <div className="multiselect_container">
           {selectedValues.length > 0 ? (
             <div className="chip_content">{this.chips()}</div>
-          ) : null}
+          ) : (
+            <div className="empty_text">No option selected</div>
+          )}
 
           <div className="custom_select" ref={this.toggleContainer}>
             <div className="select_box" style={{ width: 200 }}>
