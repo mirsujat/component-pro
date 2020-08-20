@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import "./App.css";
-
-import MultiSelect from "./components/Todo/MultiSelect/MultiSelect";
+import Select from "./components/Todo/Select/Select";
 
 const options = {
   options: [
@@ -14,60 +13,27 @@ const options = {
 };
 class App extends Component {
   state = {
-    ...options,
-    selectedValues: [],
-  };
-  // componentDidUpdate(prevState) {
-  //   const { selectedValues } = this.state;
-  //   const { selectedValues: prevSelectedvalues } = prevState;
-
-  //   if (JSON.stringify(prevSelectedvalues) !== JSON.stringify(selectedValues)) {
-  //     this.setState({
-  //       selectedValues: Object.assign([], selectedValues),
-  //       preSelectedValues: Object.assign([], selectedValues),
-  //     });
-  //   }
-  // }
-
-  getItem = (id) => {
-    const option = this.state.options.find((item) => item.id === id);
-    return option;
-  };
-  onSelect = (id) => {
-    const tempOptions = [...this.state.options];
-    const { selectedValues } = this.state;
-    const index = tempOptions.indexOf(this.getItem(id));
-    const selectedOption = tempOptions[index];
-    if (selectedValues.length === 0) {
-      this.setState(() => {
-        return { selectedValues: [selectedOption] };
-      });
-    } else {
-      this.setState(() => {
-        return { selectedValues: [...selectedValues, selectedOption] };
-      });
-    }
+    selectedValue: "noPaymentMethod",
   };
 
-  onRemove = () => {
-    console.log("click from onRemove");
+  handleSelectValue = (event) => {
+    this.setState({
+      selectedValue: event.target.value,
+    });
+  };
+
+  handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    console.log("You have submitted:", this.state.selectedValue);
   };
 
   render() {
-    console.log("select value from app:", this.state.selectedValues.length);
-
     return (
       <div data-testid="app" className="app">
         <h1>Hello World</h1>
-        <br></br>
-        <MultiSelect
-          isMultiple
-          options={this.state.options}
-          selectedValues={this.state.selectedValues}
-          onSelect={this.onSelect}
-          onRemove={this.onRemove}
-          displayValue="name"
-        ></MultiSelect>
+        <h3>Custom Select Component</h3>
+        <Select></Select>
       </div>
     );
   }

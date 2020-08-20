@@ -179,3 +179,41 @@ class MultiSelect extends Component {
 }
 
 export default MultiSelect;
+
+// in app component
+// const options = {
+//   options: [
+//     { id: 1, name: "Apple" },
+//     { id: 2, name: "Orange" },
+//     { id: 3, name: "Banana" },
+//     { id: 4, name: "Pineaple" },
+//   ],
+// };
+// state = {
+//   ...options,
+//   selectedValues: [],
+// };
+
+// getItem = (id) => {
+//   const option = this.state.options.find((item) => item.id === id);
+//   return option;
+// };
+// onSelect = (id) => {
+//   const tempOptions = [...this.state.options];
+//   const { selectedValues } = this.state;
+//   const index = tempOptions.indexOf(this.getItem(id));
+//   const selectedOption = tempOptions[index];
+//   if (selectedValues.length === 0) {
+//     this.setState(() => {
+//       return { selectedValues: [selectedOption] };
+//     });
+//   } else {
+//     this.setState(() => {
+//       return { selectedValues: [...selectedValues, selectedOption] };
+//     });
+//   }
+// };
+
+// onRemove = () => {
+//   console.log("click from onRemove");
+// };
