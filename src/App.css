@@ -74,15 +74,15 @@
 /* Multiple select */
 .multiselect_container {
   display: block;
-  width: 200px;
-  height: auto;
+  width: 260px;
+  min-height: 50px;
+  max-height: 500px;
 }
 .chip_content {
   display: flex;
   flex-direction: row;
   justify-content: left;
   flex-wrap: wrap;
-  width: 200px;
   height: 60px;
   padding: 6px;
   border: 1px solid rgba(119, 118, 118, 0.2);
@@ -97,31 +97,31 @@
 }
 .custom_select {
   display: block;
-  width: 200px;
+  width: 100%;
 }
 .select_box {
   display: block;
-  width: 200px;
+  width: 100%;
 }
 .select_input {
   display: block;
-  width: 200px;
-  padding: 4px;
-  border: 1px solid rgba(119, 118, 118, 0.5);
+  width: 100%;
+  padding: 8px;
+  border: 1px solid rgba(119, 118, 118, 0.4);
+  background-color: rgba(224, 220, 221, 0.2);
 }
 .hidden {
   display: none;
 }
 .option_box {
   display: flex;
-  width: 200px;
+  width: 100%;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-top: 25px;
-  padding-bottom: 15px;
-  border: 1px solid rgba(119, 118, 118, 0.3);
+  border: 1px solid rgba(119, 118, 118, 0.1);
   box-shadow: 10px 7px 15px 6px rgba(119, 118, 118, 0.2);
+  background-color: rgba(224, 220, 221, 0.2);
 }
 ul {
   margin-block-start: 0;
@@ -135,6 +135,10 @@ li {
   list-style: none;
   width: 100%;
   cursor: pointer;
+  border-top: 1px solid rgba(152, 148, 148, 0.2);
+}
+ul > li:last-child {
+  border-bottom: 1px solid rgba(152, 148, 148, 0.2);
 }
 li:hover {
   background-color: rgba(119, 118, 118, 0.2);

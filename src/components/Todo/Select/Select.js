@@ -78,14 +78,16 @@ class Select extends Component {
     return (
       <div className="multiselect_container" ref={this.toggleContainer}>
         <div className="custom_select">
-          <div className="select_box" style={{ width: 200 }}>
+          <div className="select_box">
             <input
               className="select_input"
               type="text"
               placeholder="Select an Option"
               onClick={this.onClickHandler}
             ></input>
-            {this.state.isOpen && this.state.options.map(this.createCheckbox)}
+            <ul className={this.state.isOpen ? "option_box" : "hidden"}>
+              {this.state.isOpen && this.state.options.map(this.createCheckbox)}
+            </ul>
           </div>
         </div>
       </div>

@@ -1,18 +1,19 @@
 import React from "react";
 
 const Checkbox = (props) => (
-  <div className="checkboxes">
-    <label>
+  <li className="single_select_option">
+    <label className="custom_checkbox">
       <input
         type="checkbox"
         name={props.label}
         checked={props.isSelected}
         onChange={props.onCheckboxChange}
-        className="custom_checkbox"
+        className="select_input"
       />
+      <span className="checkmark"></span>
       {props.label}
     </label>
-  </div>
+  </li>
 );
 
 export default Checkbox;
