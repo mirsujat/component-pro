@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import "./App.css";
 import Select from "./components/Todo/Select/Select";
-import Checkbox from "./components/Todo/Select/Checkbox";
 
 const OPTIONS = ["One", "Two", "Three"];
 class App extends Component {
@@ -54,6 +53,7 @@ class App extends Component {
         <h1>Hello World</h1>
         <h3>Custom Select Component</h3>
         <Select
+          isMultiple
           options={this.state.options}
           Checkboxes={this.state.checkboxes}
           handleCheckboxChange={this.handleCheckboxChange}
