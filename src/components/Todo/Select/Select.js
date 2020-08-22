@@ -6,6 +6,8 @@ class Select extends Component {
     isMultiple: false,
     options: [],
     checkboxes: {},
+    selectedValue: "",
+    name: "",
   };
   constructor(props) {
     super(props);
@@ -42,7 +44,7 @@ class Select extends Component {
     <Checkbox
       label={option}
       isSelected={this.props.checkboxes[option]}
-      onCheckboxChange={this.props.handleCheckboxChange}
+      onChange={this.props.onChange}
       key={option}
     />
   );
@@ -55,7 +57,7 @@ class Select extends Component {
             <input
               className="select_input"
               type="text"
-              placeholder="Select an Option"
+              placeholder="Choose your interests"
               onClick={this.onClickinSideToShowPopup}
             ></input>
             <ul className={this.state.isOpen ? "option_box" : "hidden"}>
@@ -71,8 +73,9 @@ class Select extends Component {
     if (this.props.isMultiple) return this.createCheckboxes();
     return (
       <select
+        name={this.props.name}
         value={this.props.selectedValue}
-        onChange={this.props.handleCheckboxChange}
+        onChange={this.props.onChange}
         className="form-control"
         id="paymentMethod"
       >
