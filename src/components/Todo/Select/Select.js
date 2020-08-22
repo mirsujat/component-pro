@@ -71,8 +71,8 @@ class Select extends Component {
     if (this.props.isMultiple) return this.createCheckboxes();
     return (
       <select
-        value={this.state.selectedValue}
-        onChange={this.handleSelectValue}
+        value={this.props.selectedValue}
+        onChange={this.props.handleCheckboxChange}
         className="form-control"
         id="paymentMethod"
       >

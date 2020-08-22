@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import "./App.css";
 import Select from "./components/Todo/Select/Select";
+import Checkbox from "./components/Todo/Select/Checkbox";
 
 const OPTIONS = ["One", "Two", "Three"];
 class App extends Component {
@@ -17,20 +18,28 @@ class App extends Component {
     ),
   };
 
+  //Default select
   handleSelectValue = (event) => {
     this.setState({
       selectedValue: event.target.value,
     });
   };
-  handleCheckboxChange = (changeEvent) => {
-    const { name } = changeEvent.target;
-
-    this.setState((prevState) => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        [name]: !prevState.checkboxes[name],
-      },
-    }));
+  //Multiselect
+  handleCheckboxChange = (event) => {
+    const { name } = event.target;
+    //
+    if (event.target.type === "checkbox") {
+      this.setState((prevState) => ({
+        checkboxes: {
+          ...prevState.checkboxes,
+          [name]: !prevState.checkboxes[name],
+        },
+      }));
+    } else {
+      this.setState({
+        selectedValue: event.target.value,
+      });
+    }
   };
 
   handleFormSubmit = (event) => {
@@ -45,10 +54,10 @@ class App extends Component {
         <h1>Hello World</h1>
         <h3>Custom Select Component</h3>
         <Select
-          isMultiple
           options={this.state.options}
           Checkboxes={this.state.checkboxes}
           handleCheckboxChange={this.handleCheckboxChange}
+          selectedValue={this.state.selectedValue}
         ></Select>
       </div>
     );
