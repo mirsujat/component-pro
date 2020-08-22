@@ -1,7 +1,7 @@
 import React from "react";
 
 const Checkbox = (props) => (
-  <li className="single_select_option">
+  <div className="select_option">
     <label className="custom_checkbox">
       <input
         type="checkbox"
@@ -13,7 +13,7 @@ const Checkbox = (props) => (
       <span className="checkmark"></span>
       {props.label}
     </label>
-  </li>
+  </div>
 );
 
 export default Checkbox;
