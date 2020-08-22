@@ -60,9 +60,9 @@ class Select extends Component {
               placeholder="Choose your interests"
               onClick={this.onClickinSideToShowPopup}
             ></input>
-            <ul className={this.state.isOpen ? "option_box" : "hidden"}>
+            <fieldset className={this.state.isOpen ? "option_box" : "hidden"}>
               {this.state.isOpen && this.state.options.map(this.createCheckbox)}
-            </ul>
+            </fieldset>
           </div>
         </div>
       </div>
