@@ -120,6 +120,21 @@ fieldset {
   display: block;
   width: 100%;
 }
+.input_dropdown {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid rgba(119, 118, 118, 0.4);
+  background-color: rgba(224, 220, 221, 0.2);
+}
+.input_dropdown::before {
+  position: absolute;
+  content: " \005E";
+  top: 0px;
+  right: -8px;
+  height: 20px;
+  width: 20px;
+}
 .select_input {
   display: block;
   width: 100%;

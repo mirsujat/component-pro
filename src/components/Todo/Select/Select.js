@@ -55,7 +55,7 @@ class Select extends Component {
         <div className="custom_select">
           <div className="select_box">
             <input
-              className="select_input"
+              className="input_dropdown"
               type="text"
               placeholder="Choose your interests"
               onClick={this.onClickinSideToShowPopup}
