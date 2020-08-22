@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import "./App.css";
 import Select from "./components/Todo/Select/Select";
 
-const OPTIONS = ["One", "Two", "Three"];
+const OPTIONS = ["Coding", "Music", "Sports", "Arts", "Cooking", "Travel"];
 class App extends Component {
   state = {
-    selectedValue: "noPaymentMethod",
+    PaymentMethod: "noPaymentMethod",
     options: [...OPTIONS],
     checkboxes: OPTIONS.reduce(
       (options, option) => ({
@@ -17,16 +17,9 @@ class App extends Component {
     ),
   };
 
-  //Default select
-  handleSelectValue = (event) => {
-    this.setState({
-      selectedValue: event.target.value,
-    });
-  };
-  //Multiselect
-  handleCheckboxChange = (event) => {
+  onChangeHandler = (event) => {
     const { name } = event.target;
-    //
+    //Multiselect
     if (event.target.type === "checkbox") {
       this.setState((prevState) => ({
         checkboxes: {
@@ -35,8 +28,9 @@ class App extends Component {
         },
       }));
     } else {
+      //Default select and other input
       this.setState({
-        selectedValue: event.target.value,
+        [name]: event.target.value,
       });
     }
   };
@@ -52,12 +46,14 @@ class App extends Component {
       <div data-testid="app" className="app">
         <h1>Hello World</h1>
         <h3>Custom Select Component</h3>
+
         <Select
           isMultiple
           options={this.state.options}
           Checkboxes={this.state.checkboxes}
-          handleCheckboxChange={this.handleCheckboxChange}
-          selectedValue={this.state.selectedValue}
+          onChange={this.onChangeHandler}
+          selectedValue={this.state.PaymentMethod}
+          name="PaymentMethod"
         ></Select>
       </div>
     );
