@@ -18,7 +18,7 @@ class Select extends Component {
   }
 
   componentDidMount = () => {
-    window.addEventListener("click", this.onClickOutsideToHidePopup);
+    window.addEventListener("click", this.onClickOutSideToHidePopup);
   };
 
   componentWillUnmount = () => {

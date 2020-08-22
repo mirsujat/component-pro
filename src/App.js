@@ -3,14 +3,6 @@ import React, { Component } from "react";
 import "./App.css";
 import Select from "./components/Todo/Select/Select";
 
-// const options = {
-//   options: [
-//     { id: 1, name: "Apple" },
-//     { id: 2, name: "Orange" },
-//     { id: 3, name: "Banana" },
-//     { id: 4, name: "Pineaple" },
-//   ],
-// };
 const OPTIONS = ["One", "Two", "Three"];
 class App extends Component {
   state = {
