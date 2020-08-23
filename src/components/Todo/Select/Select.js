@@ -15,6 +15,7 @@ class Select extends Component {
       options: props.options,
       checkboxes: props.checkboxes,
       isOpen: false,
+      chips: [],
     };
     this.toggleContainer = React.createRef();
   }
@@ -42,13 +43,30 @@ class Select extends Component {
     }
   };
   createChips = () => {
-    const { checkboxes } = this.props;
-    for (const [key, value] of Object.entries(checkboxes)) {
-      // console.log(`${key}: ${value}`);
-      if (value === true) {
-        console.log("Hello", key);
+    const { checkboxes, options } = this.props;
+
+    //  for (const [key, value] of Object.entries(checkboxes)) {
+    // console.log(`${key}: ${value}`);
+    // }
+    let chips = null;
+    const test = Object.entries(checkboxes);
+    const mir = test.map((item) => {
+      if (item[1] === true) {
+        return item[0];
       }
-    }
+    });
+    chips = mir.map((option) => {
+      if (typeof option === "undefined") {
+        return null;
+      } else {
+        return (
+          <span key={Math.random()} className="chip">
+            {option}
+          </span>
+        );
+      }
+    });
+    return chips;
   };
 
   createCheckbox = (option) => (
@@ -63,6 +81,7 @@ class Select extends Component {
   createCheckboxes = () => {
     return (
       <div className="multiselect_container" ref={this.toggleContainer}>
+        {this.createChips()}
         <div className="custom_select">
           <div className="select_box">
             <div
@@ -112,6 +131,7 @@ class Select extends Component {
   render() {
     console.log("selected: ", this.props.checkboxes);
     console.log(this.createChips());
+
     return <div className="select_container">{this.renderSelect()}</div>;
   }
 }
