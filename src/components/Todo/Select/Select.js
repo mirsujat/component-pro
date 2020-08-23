@@ -28,7 +28,9 @@ class Select extends Component {
   };
 
   onClickinSideToShowPopup = () => {
-    this.setState({ isOpen: true });
+    this.setState((currentState) => ({
+      isOpen: !currentState.isOpen,
+    }));
   };
 
   onClickOutSideToHidePopup = (event) => {
@@ -37,6 +39,15 @@ class Select extends Component {
       !this.toggleContainer.current.contains(event.target)
     ) {
       this.setState({ isOpen: false });
+    }
+  };
+  createChips = () => {
+    const { checkboxes } = this.props;
+    for (const [key, value] of Object.entries(checkboxes)) {
+      // console.log(`${key}: ${value}`);
+      if (value === true) {
+        console.log("Hello", key);
+      }
     }
   };
 
@@ -54,12 +65,15 @@ class Select extends Component {
       <div className="multiselect_container" ref={this.toggleContainer}>
         <div className="custom_select">
           <div className="select_box">
-            <div className="input-group">
+            <div
+              className="input-group"
+              onClick={this.onClickinSideToShowPopup}
+            >
               <input
                 className="input_dropdown"
                 type="text"
                 placeholder="Choose your interests"
-                onClick={this.onClickinSideToShowPopup}
+                readOnly
               ></input>
               {this.state.isOpen ? (
                 <span className="arrow-down">&#10092;</span>
@@ -96,6 +110,8 @@ class Select extends Component {
   };
 
   render() {
+    console.log("selected: ", this.props.checkboxes);
+    console.log(this.createChips());
     return <div className="select_container">{this.renderSelect()}</div>;
   }
 }

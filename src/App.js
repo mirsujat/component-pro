@@ -50,7 +50,7 @@ class App extends Component {
         <Select
           isMultiple
           options={this.state.options}
-          Checkboxes={this.state.checkboxes}
+          checkboxes={this.state.checkboxes}
           onChange={this.onChangeHandler}
           selectedValue={this.state.PaymentMethod}
           name="PaymentMethod"

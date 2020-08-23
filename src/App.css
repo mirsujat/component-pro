@@ -124,6 +124,7 @@ fieldset {
   display: block;
   position: relative;
   width: 100%;
+  cursor: pointer;
 }
 .input_dropdown {
   display: block;
@@ -131,6 +132,7 @@ fieldset {
   padding: 8px;
   border: 1px solid rgba(119, 118, 118, 0.4);
   background-color: rgba(224, 220, 221, 0.2);
+  cursor: pointer;
 }
 .arrow-up {
   display: inline-block;
