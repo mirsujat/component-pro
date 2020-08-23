@@ -62,9 +62,9 @@ class Select extends Component {
                 onClick={this.onClickinSideToShowPopup}
               ></input>
               {this.state.isOpen ? (
-                <span className="arrow-up">&#10093;</span>
-              ) : (
                 <span className="arrow-down">&#10092;</span>
+              ) : (
+                <span className="arrow-up">&#10093;</span>
               )}
             </div>
 
