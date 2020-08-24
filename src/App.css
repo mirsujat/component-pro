@@ -95,16 +95,6 @@ fieldset {
   background-color: #ccc;
 }
 
-.chip_content {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  flex-wrap: wrap;
-  height: 60px;
-  padding: 6px;
-  border: 1px solid rgba(119, 118, 118, 0.2);
-  overflow: auto;
-}
 .empty_text {
   display: block;
   text-align: center;
@@ -252,19 +242,47 @@ fieldset {
   transform: rotate(45deg);
 }
 /* Chips CSS */
+.chips_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+  height: 60px;
+  padding: 6px;
+  border: 1px solid rgba(130, 127, 127, 0.1);
+  overflow: auto;
+}
+
 .chip {
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   padding: 0 5px;
   margin: 2px;
   height: 24px;
   font-size: 14px;
   text-align: center;
-  width: 60px;
+  min-width: 60px;
+  max-width: 84px;
   line-height: 24px;
   border-radius: 25px;
+  color: rgba(12, 7, 7, 0.64);
   background-color: #f1f1f1;
+  cursor: pointer;
 }
-
+.chip_content {
+  display: flex;
+  justify-content: left;
+}
+.chip_close_icon {
+  display: flex;
+  justify-content: right;
+  padding-left: 6px;
+  color: rgba(255, 0, 0, 0.3);
+  /* font-weight: bold; */
+  float: right;
+  font-size: 14px;
+  cursor: pointer;
+}
 .chip img {
   float: left;
   margin: 0 10px 0 -25px;
