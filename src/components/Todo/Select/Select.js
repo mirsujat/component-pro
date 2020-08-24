@@ -9,12 +9,14 @@ class Select extends Component {
     selectedValue: "",
     name: "",
     chips: false,
+    deselect: () => {},
   };
   constructor(props) {
     super(props);
     this.state = {
       options: props.options,
       checkboxes: props.checkboxes,
+
       isOpen: false,
     };
     this.toggleContainer = React.createRef();
@@ -23,15 +25,25 @@ class Select extends Component {
   componentDidMount = () => {
     window.addEventListener("click", this.onClickOutSideToHidePopup);
   };
+  componentDidUpdate = (prevProps) => {
+    const { options } = this.props;
+    const { options: prevOptions } = prevProps;
+    if (JSON.stringify(prevOptions) !== JSON.stringify(options)) {
+      this.setState({
+        options,
+      });
+    }
+    return;
+  };
 
   componentWillUnmount = () => {
     window.removeEventListener("click", this.onClickOutSideToHidePopup);
   };
 
   onClickinSideToShowPopup = () => {
-    this.setState((currentState) => ({
-      isOpen: !currentState.isOpen,
-    }));
+    this.setState({
+      isOpen: true,
+    });
   };
 
   onClickOutSideToHidePopup = (event) => {
@@ -44,13 +56,18 @@ class Select extends Component {
   };
 
   createChips = () => {
-    const { options } = this.props;
+    const { options, deselect } = this.props;
+
     let chips = null;
     chips = options
       .filter((option) => option.isChecked === true)
       .map((option) => {
         return (
-          <div className="chip" key={option.id}>
+          <div
+            className="chip"
+            key={option.id}
+            onClick={() => deselect(option)}
+          >
             <span className="chip_content">{option.value}</span>
             <span className="chip_close_icon">X</span>
           </div>
@@ -73,7 +90,12 @@ class Select extends Component {
       key={option.id}
     />
   );
-
+  renderOptions = () => {
+    const { options } = this.state;
+    let renderOptionElem;
+    renderOptionElem = options.map(this.createCheckbox);
+    return renderOptionElem;
+  };
   createCheckboxes = () => {
     return (
       <div className="multiselect_container" ref={this.toggleContainer}>
@@ -98,7 +120,7 @@ class Select extends Component {
             </div>
 
             <fieldset className={this.state.isOpen ? "option_box" : "hidden"}>
-              {this.state.isOpen && this.state.options.map(this.createCheckbox)}
+              {this.state.isOpen && this.renderOptions()}
             </fieldset>
           </div>
         </div>

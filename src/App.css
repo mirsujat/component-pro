@@ -94,6 +94,9 @@ fieldset {
 .select_option:hover {
   background-color: #ccc;
 }
+.selected {
+  background-color: rgba(226, 221, 224, 0.4);
+}
 
 .empty_text {
   display: block;
@@ -168,10 +171,6 @@ fieldset {
   background-color: rgba(224, 220, 221, 0.2);
 }
 
-.selected {
-  background-color: green;
-}
-
 /* Customize the label (the container) */
 .custom_checkbox {
   display: block;
@@ -214,7 +213,7 @@ fieldset {
 
 /* When the checkbox is checked, add a blue background */
 .custom_checkbox input:checked ~ .checkmark {
-  background-color: #2196f3;
+  border: 2px solid #58595a;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -231,12 +230,12 @@ fieldset {
 
 /* Style the checkmark/indicator */
 .custom_checkbox .checkmark:after {
-  left: 7px;
-  top: 2px;
-  width: 5px;
+  left: 6px;
+  top: 0px;
+  width: 4px;
   height: 12px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
+  border: solid #1d1e1f;
+  border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);

@@ -32,6 +32,16 @@ class App extends Component {
     }
   };
 
+  deselect = (item) => {
+    const { options } = this.state;
+    options.forEach((option) => {
+      if (option.id === item.id) {
+        option.isChecked = false;
+      }
+    });
+    this.setState({ options: options });
+  };
+
   handleFormSubmit = (event) => {
     event.preventDefault();
 
@@ -49,6 +59,7 @@ class App extends Component {
           chips
           options={this.state.options}
           onChange={this.onChange}
+          deselect={this.deselect}
         ></Select>
       </div>
     );
