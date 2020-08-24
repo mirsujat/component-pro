@@ -16,7 +16,6 @@ class Select extends Component {
       options: props.options,
       checkboxes: props.checkboxes,
       isOpen: false,
-      chips: [],
     };
     this.toggleContainer = React.createRef();
   }
@@ -43,47 +42,42 @@ class Select extends Component {
       this.setState({ isOpen: false });
     }
   };
+
   createChips = () => {
-    const { checkboxes } = this.props;
-
-    let tempObj, tempArray;
-    tempArray = Object.entries(checkboxes);
-    tempObj = tempArray.filter((item) => {
-      if (item[1] === true) {
-        return item[0];
-      }
-      return tempObj;
-    });
-
+    const { options } = this.props;
     let chips = null;
-    chips = tempObj.map((option) => {
-      if (typeof option === "undefined") {
-        return null;
-      } else {
+    chips = options
+      .filter((option) => option.isChecked === true)
+      .map((option) => {
         return (
-          <span key={Math.random()} className="chip">
-            {option}
-          </span>
+          <div className="chip" key={option.id}>
+            <span className="chip_content">{option.value}</span>
+            <span className="chip_close_icon">X</span>
+          </div>
         );
-      }
-    });
+      });
     return chips;
   };
 
+  renderChips = () => {
+    if (this.props.chips) {
+      return <div className="chips_container">{this.createChips()}</div>;
+    }
+    return null;
+  };
   createCheckbox = (option) => (
     <Checkbox
-      label={option}
-      isSelected={this.props.checkboxes[option]}
+      label={option.value}
+      isChecked={option.isChecked}
       onChange={this.props.onChange}
-      key={option}
+      key={option.id}
     />
   );
 
   createCheckboxes = () => {
-    const { chips } = this.props;
     return (
       <div className="multiselect_container" ref={this.toggleContainer}>
-        {chips ? this.createChips() : null}
+        {this.renderChips()}
         <div className="custom_select">
           <div className="select_box">
             <div
@@ -131,9 +125,7 @@ class Select extends Component {
   };
 
   render() {
-    console.log("selected: ", this.props.checkboxes);
-    console.log(this.createChips());
-
+    console.log("Options: ", this.props.options);
     return <div className="select_container">{this.renderSelect()}</div>;
   }
 }
