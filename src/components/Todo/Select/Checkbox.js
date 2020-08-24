@@ -6,8 +6,9 @@ const Checkbox = (props) => (
       <input
         type="checkbox"
         name={props.label}
-        checked={props.isSelected}
+        checked={props.isChecked}
         onChange={props.onChange}
+        value={props.label}
         className="select_input"
       />
       <span className="checkmark"></span>
