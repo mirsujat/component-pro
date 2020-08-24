@@ -8,6 +8,7 @@ class Select extends Component {
     checkboxes: {},
     selectedValue: "",
     name: "",
+    chips: false,
   };
   constructor(props) {
     super(props);
@@ -43,19 +44,19 @@ class Select extends Component {
     }
   };
   createChips = () => {
-    const { checkboxes, options } = this.props;
+    const { checkboxes } = this.props;
 
-    //  for (const [key, value] of Object.entries(checkboxes)) {
-    // console.log(`${key}: ${value}`);
-    // }
-    let chips = null;
-    const test = Object.entries(checkboxes);
-    const mir = test.map((item) => {
+    let tempObj, tempArray;
+    tempArray = Object.entries(checkboxes);
+    tempObj = tempArray.filter((item) => {
       if (item[1] === true) {
         return item[0];
       }
+      return tempObj;
     });
-    chips = mir.map((option) => {
+
+    let chips = null;
+    chips = tempObj.map((option) => {
       if (typeof option === "undefined") {
         return null;
       } else {
@@ -79,9 +80,10 @@ class Select extends Component {
   );
 
   createCheckboxes = () => {
+    const { chips } = this.props;
     return (
       <div className="multiselect_container" ref={this.toggleContainer}>
-        {this.createChips()}
+        {chips ? this.createChips() : null}
         <div className="custom_select">
           <div className="select_box">
             <div

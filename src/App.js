@@ -49,6 +49,7 @@ class App extends Component {
 
         <Select
           isMultiple
+          chips
           options={this.state.options}
           checkboxes={this.state.checkboxes}
           onChange={this.onChangeHandler}
