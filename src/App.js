@@ -15,11 +15,11 @@ const INTERESTS = [
 class App extends Component {
   state = {
     PaymentMethod: "noPaymentMethod",
-    options: [...INTERESTS],
+    options: [],
   };
 
   onChange = (event) => {
-    const options = this.state.options;
+    const options = INTERESTS;
     const { name, value } = event.target;
     if (event.target.type === "checkbox") {
       options.forEach((option) => {
@@ -33,11 +33,9 @@ class App extends Component {
   };
 
   deselect = (item) => {
-    const { options } = this.state;
+    const options = this.state.options;
     options.forEach((option) => {
-      if (option.id === item.id) {
-        option.isChecked = false;
-      }
+      if (option.value === item.value) option.isChecked = false;
     });
     this.setState({ options: options });
   };
@@ -49,6 +47,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("options: ", this.state.options);
     return (
       <div data-testid="app" className="app">
         <h1>Hello World</h1>
@@ -57,7 +56,7 @@ class App extends Component {
         <Select
           isMultiple
           chips
-          options={this.state.options}
+          options={INTERESTS}
           onChange={this.onChange}
           deselect={this.deselect}
         ></Select>

@@ -5,7 +5,6 @@ class Select extends Component {
   static defaultProps = {
     isMultiple: false,
     options: [],
-    checkboxes: {},
     selectedValue: "",
     name: "",
     chips: false,
@@ -15,8 +14,6 @@ class Select extends Component {
     super(props);
     this.state = {
       options: props.options,
-      checkboxes: props.checkboxes,
-
       isOpen: false,
     };
     this.toggleContainer = React.createRef();
@@ -24,16 +21,6 @@ class Select extends Component {
 
   componentDidMount = () => {
     window.addEventListener("click", this.onClickOutSideToHidePopup);
-  };
-  componentDidUpdate = (prevProps) => {
-    const { options } = this.props;
-    const { options: prevOptions } = prevProps;
-    if (JSON.stringify(prevOptions) !== JSON.stringify(options)) {
-      this.setState({
-        options,
-      });
-    }
-    return;
   };
 
   componentWillUnmount = () => {
@@ -55,8 +42,13 @@ class Select extends Component {
     }
   };
 
+  onDeselect = (option) => {
+    this.props.deselect(option);
+    this.setState({ isOpen: true });
+  };
+
   createChips = () => {
-    const { options, deselect } = this.props;
+    const { options } = this.props;
 
     let chips = null;
     chips = options
@@ -66,7 +58,7 @@ class Select extends Component {
           <div
             className="chip"
             key={option.id}
-            onClick={() => deselect(option)}
+            onClick={() => this.onDeselect(option)}
           >
             <span className="chip_content">{option.value}</span>
             <span className="chip_close_icon">X</span>
@@ -91,14 +83,18 @@ class Select extends Component {
     />
   );
   renderOptions = () => {
-    const { options } = this.state;
+    const { options } = this.props;
     let renderOptionElem;
     renderOptionElem = options.map(this.createCheckbox);
     return renderOptionElem;
   };
   createCheckboxes = () => {
     return (
-      <div className="multiselect_container" ref={this.toggleContainer}>
+      <div
+        className="multiselect_container"
+        ref={this.toggleContainer}
+        onClick={this.onClickinSideToShowPopup}
+      >
         {this.renderChips()}
         <div className="custom_select">
           <div className="select_box">
@@ -147,7 +143,6 @@ class Select extends Component {
   };
 
   render() {
-    console.log("Options: ", this.props.options);
     return <div className="select_container">{this.renderSelect()}</div>;
   }
 }

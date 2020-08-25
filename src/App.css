@@ -95,7 +95,8 @@ fieldset {
   background-color: #ccc;
 }
 .selected {
-  background-color: rgba(226, 221, 224, 0.4);
+  background-color: #ccc;
+  border-bottom: 1px solid #eee;
 }
 
 .empty_text {
