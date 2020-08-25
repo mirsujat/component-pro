@@ -5,6 +5,7 @@ const Checkbox = (props) => {
   if (props.isChecked === true) {
     className += " selected";
   }
+
   return (
     <div className={className}>
       <label className="custom_checkbox">

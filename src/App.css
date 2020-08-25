@@ -204,6 +204,8 @@ fieldset {
   height: 22px;
   width: 22px;
   background-color: #c5c4c4;
+  border: 2px solid #8a8787;
+  border-radius: 3px;
 }
 
 /* On mouse-over, add a grey background color */
@@ -213,7 +215,7 @@ fieldset {
 
 /* When the checkbox is checked, add a blue background */
 .custom_checkbox input:checked ~ .checkmark {
-  border: 2px solid #58595a;
+  border: 2px solid #1b1b1b;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
