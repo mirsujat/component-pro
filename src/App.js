@@ -15,29 +15,50 @@ const INTERESTS = [
 class App extends Component {
   state = {
     PaymentMethod: "noPaymentMethod",
-    options: [],
+    options: [...INTERESTS],
+    selectedValue: [],
   };
 
   onChange = (event) => {
     const options = INTERESTS;
     const { name, value } = event.target;
     if (event.target.type === "checkbox") {
-      options.forEach((option) => {
-        if (option.value === event.target.value)
+      //   options.forEach((option) => {
+      //     if (option.value === event.target.value)
+      //       option.isChecked = event.target.checked;
+      //   });
+      //   this.setState({ options: options });
+      // } else {
+      //   this.setState({ [name]: value });
+      // }
+      options.filter((option) => {
+        if (option.value === event.target.value) {
           option.isChecked = event.target.checked;
+        }
+        return option;
       });
-      this.setState({ options: options });
-    } else {
-      this.setState({ [name]: value });
+      this.setState((state) => {
+        const selectedValue = [...state.selectedValue, options];
+        return { selectedValue };
+      });
     }
   };
 
   deselect = (item) => {
-    const options = this.state.options;
-    options.forEach((option) => {
-      if (option.value === item.value) option.isChecked = false;
+    // const options = this.state.options;
+    // options.forEach((option) => {
+    //   if (option.value === item.value) option.isChecked = false;
+    // });
+    this.setState((state) => {
+      const options = state.options.map((option) => {
+        if (option.value === item.value) {
+          return (option.isChecked = false);
+        } else {
+          return option;
+        }
+      });
+      return options;
     });
-    this.setState({ options: options });
   };
 
   handleFormSubmit = (event) => {
@@ -58,6 +79,7 @@ class App extends Component {
           chips
           options={INTERESTS}
           onChange={this.onChange}
+          selectedValue={this.state.options}
           deselect={this.deselect}
         ></Select>
       </div>
