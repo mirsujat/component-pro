@@ -51,9 +51,8 @@ class Select extends Component {
     const { options } = this.props;
 
     let chips = null;
-    chips = options
-      .filter((option) => option.isChecked === true)
-      .map((option) => {
+    chips = options.map((option) => {
+      if (option.isChecked) {
         return (
           <div
             className="chip"
@@ -64,7 +63,9 @@ class Select extends Component {
             <span className="chip_close_icon">X</span>
           </div>
         );
-      });
+      }
+      return null;
+    });
     return chips;
   };
 
