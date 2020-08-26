@@ -39,20 +39,9 @@ class App extends Component {
   //Deselect ontion
   onDeselect = (option) => {
     const checkboxes = this.state.checkboxes;
-    const filterOption = Object.keys(checkboxes).find((elem) => {
-      if (elem === option[0]) {
-        return option[0];
-      }
-      return filterOption.toString();
-    });
-    filterOption.toString();
-    this.setState((prevState) => ({
-      checkboxes: {
-        ...prevState.checkboxes,
-        checkboxes[filterOption]: false 
-      }
-    }));
-    console.log("filterOption: ", filterOption);
+    const tempObj = Object.assign([], checkboxes);
+
+    console.log("filterOption: ", "");
     console.log("checkboxes: ", checkboxes);
   };
 

@@ -10,11 +10,13 @@ class Select extends Component {
     name: "",
     chips: false,
   };
+
   constructor(props) {
     super(props);
+    const checkboxes = Object.assign([], this.props.checkboxes);
     this.state = {
       options: props.options,
-      checkboxes: props.checkboxes,
+      checkboxes: Object.assign(props.options, checkboxes),
       isOpen: false,
       chips: [],
     };
@@ -46,18 +48,19 @@ class Select extends Component {
 
   createChips = () => {
     const { checkboxes } = this.props;
+    const chipsOptions = Object.assign([], checkboxes);
 
-    let tempObj, tempArray;
-    tempArray = Object.entries(checkboxes);
-    tempObj = tempArray.filter((item) => {
-      if (item[1] === true) {
-        return item[0];
-      }
-      return tempObj;
-    });
+    // let tempObj, tempArray;
+    // tempArray = Object.entries(checkboxes);
+    // tempObj = tempArray.filter((item) => {
+    //   if (item[1] === true) {
+    //     return item[0];
+    //   }
+    //   return tempObj;
+    // });
 
     let chips = null;
-    chips = tempObj.map((option) => {
+    chips = chipsOptions.map((option) => {
       if (typeof option === "undefined") {
         return null;
       } else {
@@ -136,7 +139,7 @@ class Select extends Component {
   };
 
   render() {
-    console.log("selected : ", this.props.checkboxes);
+    console.log("selected : ", this.state.checkboxes);
 
     return <div className="select_container">{this.renderSelect()}</div>;
   }
