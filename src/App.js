@@ -3,46 +3,58 @@ import React, { Component } from "react";
 import "./App.css";
 import Select from "./components/Todo/Select/Select";
 
-const OPTIONS = ["Coding", "Music", "Sports", "Arts", "Cooking", "Travel"];
+const INTERESTS = [
+  { id: 1, value: "Coding", isChecked: false },
+  { id: 2, value: "Reading", isChecked: false },
+  { id: 3, value: "Writing", isChecked: false },
+  { id: 4, value: "Sports", isChecked: false },
+  { id: 5, value: "Movies", isChecked: false },
+  { id: 6, value: "Travelling", isChecked: false },
+];
+
 class App extends Component {
   state = {
     PaymentMethod: "noPaymentMethod",
-    options: [...OPTIONS],
-    checkboxes: OPTIONS.reduce(
-      (options, option) => ({
-        ...options,
-        [option]: false,
-      }),
-      {}
-    ),
+    options: [...INTERESTS],
+    selectedValue: [],
   };
 
-  //input change heandler
-  onChangeHandler = (event) => {
-    const { name } = event.target;
-    //Multiselect
+  onChange = (event) => {
+    const options = INTERESTS;
+
+    const { name, value } = event.target;
     if (event.target.type === "checkbox") {
-      this.setState((prevState) => ({
-        checkboxes: {
-          ...prevState.checkboxes,
-          [name]: !prevState.checkboxes[name],
-        },
-      }));
-    } else {
-      //Default select and other input
-      this.setState({
-        [name]: event.target.value,
+      options.filter((option) => {
+        if (option.value === event.target.value)
+          option.isChecked = event.target.checked;
       });
+      this.setState({ selectedValue: options });
+    } else {
+      this.setState({ [name]: value });
     }
+    // options.filter((option) => {
+    //   if (option.value === event.target.value) {
+    //     option.isChecked = event.target.checked;
+    //   }
+    //   return option;
+    // });
+    // this.setState((state) => {
+    //   const selectedValue = [...state.selectedValue, options];
+    //   return { selectedValue };
+    // });
   };
 
-  //Deselect ontion
-  onDeselect = (option) => {
-    const checkboxes = this.state.checkboxes;
-    const tempObj = Object.assign([], checkboxes);
-
-    console.log("filterOption: ", "");
-    console.log("checkboxes: ", checkboxes);
+  deselect = (item) => {
+    // const options = this.state.options;
+    // options.forEach((option) => {
+    //   if (option.value === item.value) option.isChecked = false;
+    // });
+    this.setState((state, prevState) => {
+      const selectedValue = state.selectedValue
+        .filter((option, i) => option.id === item.id)
+        .map((option) => (option.isChecked = false));
+      return [...state.selectedValue, selectedValue];
+    });
   };
 
   handleFormSubmit = (event) => {
@@ -52,6 +64,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("options form App: ", this.state.options);
     return (
       <div data-testid="app" className="app">
         <h1>Hello World</h1>
@@ -59,13 +72,12 @@ class App extends Component {
 
         <Select
           isMultiple
+          menuOpen
           chips
-          options={this.state.options}
-          checkboxes={this.state.checkboxes}
-          onChange={this.onChangeHandler}
-          selectedValue={this.state.PaymentMethod}
-          deselect={this.onDeselect}
-          name="PaymentMethod"
+          options={INTERESTS}
+          onChange={this.onChange}
+          selectedValue={this.state.selectedValue}
+          deselect={this.deselect}
         ></Select>
       </div>
     );

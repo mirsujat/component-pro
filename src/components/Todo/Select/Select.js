@@ -5,36 +5,34 @@ class Select extends Component {
   static defaultProps = {
     isMultiple: false,
     options: [],
-    checkboxes: {},
     selectedValue: "",
     name: "",
     chips: false,
+    menuOpen: false,
+    deselect: () => {},
   };
-
   constructor(props) {
     super(props);
-    const checkboxes = Object.assign([], this.props.checkboxes);
     this.state = {
       options: props.options,
-      checkboxes: Object.assign(props.options, checkboxes),
       isOpen: false,
-      chips: [],
+      isMenuOpen: false,
     };
     this.toggleContainer = React.createRef();
   }
 
-  componentDidMount = () => {
-    window.addEventListener("click", this.onClickOutSideToHidePopup);
-  };
+  // componentDidMount = () => {
+  //   window.addEventListener("click", this.onClickOutSideToHidePopup);
+  // };
 
-  componentWillUnmount = () => {
-    window.removeEventListener("click", this.onClickOutSideToHidePopup);
-  };
+  // componentWillUnmount = () => {
+  //   window.removeEventListener("click", this.onClickOutSideToHidePopup);
+  // };
 
   onClickinSideToShowPopup = () => {
-    this.setState((currentState) => ({
-      isOpen: !currentState.isOpen,
-    }));
+    this.setState({
+      isOpen: true,
+    });
   };
 
   onClickOutSideToHidePopup = (event) => {
@@ -46,52 +44,71 @@ class Select extends Component {
     }
   };
 
-  createChips = () => {
-    const { checkboxes } = this.props;
-    const chipsOptions = Object.assign([], checkboxes);
+  //menu open
+  onMenuOpen = () => {
+    this.setState((currentState) => ({
+      isMenuOpen: !currentState.isMenuOpen,
+    }));
+  };
 
-    // let tempObj, tempArray;
-    // tempArray = Object.entries(checkboxes);
-    // tempObj = tempArray.filter((item) => {
-    //   if (item[1] === true) {
-    //     return item[0];
-    //   }
-    //   return tempObj;
-    // });
+  onDeselect = (option) => {
+    this.onClickinSideToShowPopup();
+    this.props.deselect(option);
+
+    return;
+  };
+
+  createChips = () => {
+    const { selectedValue } = this.props;
 
     let chips = null;
-    chips = chipsOptions.map((option) => {
-      if (typeof option === "undefined") {
-        return null;
-      } else {
+    chips = selectedValue
+      .filter((option) => option.isChecked === true)
+      .map((option) => {
         return (
-          <span
-            key={Math.random()}
+          <div
             className="chip"
-            onClick={() => this.props.deselect(option)}
+            key={option.id}
+            onClick={() => this.onDeselect(option)}
           >
-            {option}
-          </span>
+            <span className="chip_content">{option.value}</span>
+            <span className="chip_close_icon">X</span>
+          </div>
         );
-      }
-    });
+      });
     return chips;
   };
 
+  renderChips = () => {
+    if (this.props.chips) {
+      return <div className="chips_container">{this.createChips()}</div>;
+    }
+    return null;
+  };
   createCheckbox = (option) => (
     <Checkbox
-      label={option}
-      isSelected={this.props.checkboxes[option]}
+      label={option.value}
+      isChecked={option.isChecked}
       onChange={this.props.onChange}
-      key={option}
+      key={option.id}
     />
   );
-
+  renderOptions = () => {
+    const { options } = this.props;
+    let renderOptionElem;
+    renderOptionElem = options.map(this.createCheckbox);
+    return renderOptionElem;
+  };
   createCheckboxes = () => {
-    const { chips } = this.props;
+    const { menuOpen } = this.props;
+    const { isMenuOpen, isOpen } = this.state;
     return (
-      <div className="multiselect_container" ref={this.toggleContainer}>
-        {chips ? this.createChips() : null}
+      <div
+        className="multiselect_container"
+        ref={this.toggleContainer}
+        onClick={menuOpen ? null : this.onClickinSideToShowPopup}
+      >
+        {this.renderChips()}
         <div className="custom_select">
           <div className="select_box">
             <div
@@ -104,15 +121,21 @@ class Select extends Component {
                 placeholder="Choose your interests"
                 readOnly
               ></input>
-              {this.state.isOpen ? (
-                <span className="arrow-down">&#10092;</span>
+              {isMenuOpen || isOpen ? (
+                <span className="arrow-down" onClick={this.onMenuOpen}>
+                  &#10093;
+                </span>
               ) : (
-                <span className="arrow-up">&#10093;</span>
+                <span className="arrow-up" onClick={this.onMenuOpen}>
+                  &#10092;
+                </span>
               )}
             </div>
 
-            <fieldset className={this.state.isOpen ? "option_box" : "hidden"}>
-              {this.state.isOpen && this.state.options.map(this.createCheckbox)}
+            <fieldset
+              className={isMenuOpen || isOpen ? "option_box" : "hidden"}
+            >
+              {isMenuOpen || (isOpen && this.renderOptions())}
             </fieldset>
           </div>
         </div>
@@ -139,8 +162,7 @@ class Select extends Component {
   };
 
   render() {
-    console.log("selected : ", this.state.checkboxes);
-
+    console.log("selectedValue from select: ", this.props.selectedValue);
     return <div className="select_container">{this.renderSelect()}</div>;
   }
 }
