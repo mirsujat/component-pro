@@ -13,6 +13,7 @@ class Select extends Component {
   };
   constructor(props) {
     super(props);
+
     this.state = {
       options: props.options,
       isOpen: false,
@@ -21,13 +22,25 @@ class Select extends Component {
     this.toggleContainer = React.createRef();
   }
 
-  // componentDidMount = () => {
-  //   window.addEventListener("click", this.onClickOutSideToHidePopup);
-  // };
+  menuOpenProps = this.props.menuOpen;
+  if(menuOpenProps) {
+    console.log("menuOpen11:", menuOpenProps);
+  }
+  componentDidMount = () => {
+    if (this.props.menuOpen) {
+      return;
+    } else {
+      window.addEventListener("click", this.onClickOutSideToHidePopup);
+    }
+  };
 
-  // componentWillUnmount = () => {
-  //   window.removeEventListener("click", this.onClickOutSideToHidePopup);
-  // };
+  componentWillUnmount = () => {
+    if (this.props.menuOpen) {
+      return;
+    } else {
+      window.removeEventListener("click", this.onClickOutSideToHidePopup);
+    }
+  };
 
   onClickinSideToShowPopup = () => {
     this.setState({
@@ -123,11 +136,11 @@ class Select extends Component {
               ></input>
               {isMenuOpen || isOpen ? (
                 <span className="arrow-down" onClick={this.onMenuOpen}>
-                  &#10093;
+                  &#10092;
                 </span>
               ) : (
                 <span className="arrow-up" onClick={this.onMenuOpen}>
-                  &#10092;
+                  &#10093;
                 </span>
               )}
             </div>
@@ -135,7 +148,7 @@ class Select extends Component {
             <fieldset
               className={isMenuOpen || isOpen ? "option_box" : "hidden"}
             >
-              {isMenuOpen || (isOpen && this.renderOptions())}
+              {isMenuOpen || (isOpen ? this.renderOptions() : null)}
             </fieldset>
           </div>
         </div>
