@@ -62,6 +62,7 @@ class App extends Component {
           isMultiple
           menuOpen
           chips
+          placeholderChips
           options={INTERESTS}
           onChange={this.onChange}
           selectedValue={this.state.selectedValue}

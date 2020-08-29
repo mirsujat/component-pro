@@ -135,7 +135,6 @@ fieldset {
   display: block;
   position: relative;
   width: 100%;
-  cursor: pointer;
 }
 .input_dropdown {
   display: block;
@@ -143,7 +142,6 @@ fieldset {
   padding: 8px;
   margin-right: 52px;
   border: 1px solid rgba(119, 118, 118, 0.4);
-  cursor: pointer;
 }
 .input_dropdown:hover {
   border-left: 1px solid #444444;
@@ -160,6 +158,7 @@ fieldset {
   right: 0px;
   bottom: 4px;
   border-left: 1px solid #c1bfbf;
+  cursor: pointer;
 }
 .indicator:hover {
   border-left: 1px solid #444444;

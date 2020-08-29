@@ -8,6 +8,7 @@ class Select extends Component {
     selectedValue: [],
     name: "",
     chips: false,
+    placeholderChips: false,
     menuOpen: false,
     deselect: () => {},
   };
@@ -102,6 +103,14 @@ class Select extends Component {
     return null;
   };
 
+  renderPlaceholderChips = () => {
+    const { chips, selectedValue } = this.props;
+    if (chips && selectedValue.length > 0) {
+      return this.createChips();
+    }
+    return null;
+  };
+
   // create dropdown option with checkbox
   createCheckbox = (option) => (
     <Checkbox
@@ -139,7 +148,7 @@ class Select extends Component {
 
   // create options with checkboxes
   createCheckboxes = () => {
-    const { menuOpen } = this.props;
+    const { menuOpen, placeholderChips } = this.props;
     const { isMenuOpen, isOpen } = this.state;
     return (
       <div
@@ -156,9 +165,11 @@ class Select extends Component {
             >
               <input
                 className="input_dropdown"
-                type="text"
-                placeholder="Choose your interests"
-                readOnly
+                placeholder={
+                  placeholderChips
+                    ? this.renderPlaceholderChips()
+                    : "Choose your interests"
+                }
               ></input>
               <div className="indicator">{this.indicator()}</div>
             </div>
