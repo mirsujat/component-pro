@@ -10,6 +10,8 @@ const INTERESTS = [
   { id: 4, value: "Sports", isChecked: false },
   { id: 5, value: "Movies", isChecked: false },
   { id: 6, value: "Travelling", isChecked: false },
+  { id: 7, value: "Cooking", isChecked: false },
+  { id: 7, value: "Swimming", isChecked: false },
 ];
 
 class App extends Component {
@@ -32,23 +34,9 @@ class App extends Component {
     } else {
       this.setState({ [name]: value });
     }
-    // options.filter((option) => {
-    //   if (option.value === event.target.value) {
-    //     option.isChecked = event.target.checked;
-    //   }
-    //   return option;
-    // });
-    // this.setState((state) => {
-    //   const selectedValue = [...state.selectedValue, options];
-    //   return { selectedValue };
-    // });
   };
 
   deselect = (item) => {
-    // const options = this.state.options;
-    // options.forEach((option) => {
-    //   if (option.value === item.value) option.isChecked = false;
-    // });
     this.setState((state, prevState) => {
       const selectedValue = state.selectedValue
         .filter((option, i) => option.id === item.id)

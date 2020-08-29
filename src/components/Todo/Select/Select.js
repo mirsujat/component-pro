@@ -5,7 +5,7 @@ class Select extends Component {
   static defaultProps = {
     isMultiple: false,
     options: [],
-    selectedValue: "",
+    selectedValue: [],
     name: "",
     chips: false,
     menuOpen: false,
@@ -95,7 +95,8 @@ class Select extends Component {
 
   //render chips based on chips props
   renderChips = () => {
-    if (this.props.chips) {
+    const { chips, selectedValue } = this.props;
+    if (chips && selectedValue.length > 0) {
       return <div className="chips_container">{this.createChips()}</div>;
     }
     return null;
@@ -117,6 +118,23 @@ class Select extends Component {
     let renderOptionElem;
     renderOptionElem = options.map(this.createCheckbox);
     return renderOptionElem;
+  };
+
+  indicator = () => {
+    const { isMenuOpen, isOpen } = this.state;
+    let indicator = (
+      <span className="arrow-down" onClick={this.onMenuOpen}>
+        &#10093;
+      </span>
+    );
+    if (isOpen || isMenuOpen) {
+      indicator = (
+        <span className="arrow-up" onClick={this.onMenuOpen}>
+          &#10092;
+        </span>
+      );
+    }
+    return indicator;
   };
 
   // create options with checkboxes
@@ -142,15 +160,7 @@ class Select extends Component {
                 placeholder="Choose your interests"
                 readOnly
               ></input>
-              {isOpen || isMenuOpen ? (
-                <span className="arrow-down" onClick={this.onMenuOpen}>
-                  &#10092;
-                </span>
-              ) : (
-                <span className="arrow-up" onClick={this.onMenuOpen}>
-                  &#10093;
-                </span>
-              )}
+              <div className="indicator">{this.indicator()}</div>
             </div>
 
             <fieldset

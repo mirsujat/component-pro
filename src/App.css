@@ -74,10 +74,26 @@
 /* Multiple select */
 .multiselect_container {
   display: block;
-  width: 260px;
+  width: 100%;
   min-height: 50px;
   max-height: 500px;
 }
+.option_box {
+  display: flex;
+  width: 100%;
+  min-height: 100px;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 0px;
+  margin: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 1px solid rgba(119, 118, 118, 0.4);
+  box-shadow: 10px 7px 15px 6px rgba(119, 118, 118, 0.2);
+  background-color: #fff;
+}
+
 fieldset {
 }
 .select_option {
@@ -95,8 +111,8 @@ fieldset {
   background-color: #ccc;
 }
 .selected {
-  background-color: #ccc;
-  border-top: 1px solid rgba(152, 148, 148, 0.4);
+  background-color: rgba(60, 57, 57, 0.1);
+  border-top: 1px solid rgba(56, 53, 53, 0.2);
 }
 
 .empty_text {
@@ -125,29 +141,40 @@ fieldset {
   display: block;
   width: 100%;
   padding: 8px;
+  margin-right: 52px;
   border: 1px solid rgba(119, 118, 118, 0.4);
-  background-color: rgba(224, 220, 221, 0.2);
   cursor: pointer;
 }
-.arrow-up {
-  display: inline-block;
+.input_dropdown:hover {
+  border-left: 1px solid #444444;
+}
+
+.indicator {
+  display: flex;
   position: absolute;
-  top: 2px;
-  right: 14px;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: auto;
+  top: 4px;
+  right: 0px;
+  bottom: 4px;
+  border-left: 1px solid #c1bfbf;
+}
+.indicator:hover {
+  border-left: 1px solid #444444;
+}
+.arrow-up {
   transform: rotate(90deg);
   font-size: 22px;
   font-weight: bold;
-  opacity: 0.4;
+  opacity: 0.8;
 }
 .arrow-down {
-  display: inline-block;
-  position: absolute;
-  top: 2px;
-  right: 14px;
   transform: rotate(90deg);
   font-size: 22px;
   font-weight: bold;
-  opacity: 0.4;
+  opacity: 0.8;
 }
 .select_input {
   display: block;
@@ -158,18 +185,6 @@ fieldset {
 }
 .hidden {
   display: none;
-}
-.option_box {
-  display: flex;
-  width: 100%;
-  padding: 0px;
-  margin: 0;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  border: 1px solid rgba(119, 118, 118, 0.1);
-  box-shadow: 10px 7px 15px 6px rgba(119, 118, 118, 0.2);
-  background-color: rgba(224, 220, 221, 0.2);
 }
 
 /* Customize the label (the container) */
@@ -204,8 +219,8 @@ fieldset {
   left: 0;
   height: 22px;
   width: 22px;
-  background-color: #c5c4c4;
-  border: 2px solid #8a8787;
+
+  border: 2px solid #5a5959;
   border-radius: 3px;
 }
 
@@ -216,6 +231,7 @@ fieldset {
 
 /* When the checkbox is checked, add a blue background */
 .custom_checkbox input:checked ~ .checkmark {
+  background-color: #1b1b1b;
   border: 2px solid #1b1b1b;
 }
 
@@ -237,8 +253,8 @@ fieldset {
   top: 0px;
   width: 4px;
   height: 12px;
-  border: solid #1d1e1f;
-  border-width: 0 2px 2px 0;
+  border: solid #d5d6d6;
+  border-width: 0 1px 1px 0;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -258,13 +274,13 @@ fieldset {
 .chip {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 5px;
+  padding-left: 3px;
   margin: 2px;
   height: 24px;
   font-size: 14px;
   text-align: center;
   min-width: 60px;
-  max-width: 84px;
+  max-width: 150px;
   line-height: 24px;
   border-radius: 25px;
   color: rgba(12, 7, 7, 0.64);
@@ -278,12 +294,22 @@ fieldset {
 .chip_close_icon {
   display: flex;
   justify-content: right;
-  padding-left: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  margin-left: 4px;
   color: rgba(255, 0, 0, 0.3);
-  /* font-weight: bold; */
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  font-weight: bold;
   float: right;
+  text-align: center;
   font-size: 14px;
   cursor: pointer;
+}
+.chip_close_icon:hover {
+  border: 1px solid rgb(247, 100, 100);
+  color: rgb(247, 100, 100);
 }
 .chip img {
   float: left;
@@ -291,17 +317,4 @@ fieldset {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-}
-
-.closebtn {
-  padding-left: 10px;
-  color: #888;
-  font-weight: bold;
-  float: right;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.closebtn:hover {
-  color: #000;
 }
