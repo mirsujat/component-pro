@@ -11,7 +11,7 @@ const INTERESTS = [
   { id: 5, value: "Movies", isChecked: false },
   { id: 6, value: "Travelling", isChecked: false },
   { id: 7, value: "Cooking", isChecked: false },
-  { id: 7, value: "Swimming", isChecked: false },
+  { id: 8, value: "Swimming", isChecked: false },
 ];
 
 class App extends Component {
@@ -27,9 +27,12 @@ class App extends Component {
     const { name, value } = event.target;
     if (event.target.type === "checkbox") {
       options.filter((option) => {
-        if (option.value === event.target.value)
-          option.isChecked = event.target.checked;
+        if (option.value === event.target.value) {
+          return (option.isChecked = event.target.checked);
+        }
+        return options;
       });
+
       this.setState({ selectedValue: options });
     } else {
       this.setState({ [name]: value });

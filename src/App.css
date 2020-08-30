@@ -153,7 +153,7 @@ fieldset {
   justify-content: center;
   align-items: center;
   width: 50px;
-  height: auto;
+  height: 24px;
   top: 4px;
   right: 0px;
   bottom: 4px;
@@ -186,6 +186,42 @@ fieldset {
   display: none;
 }
 
+/* placeholder */
+.placeholder {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 32px;
+  max-height: auto;
+  border: 1px solid rgba(119, 118, 118, 0.4);
+}
+.chips-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  align-items: left;
+}
+.chip-content {
+  display: inline-block;
+  padding: 3px;
+  margin: 0 2px;
+  line-height: 14px;
+  background-color: #e0dede;
+  text-align: center;
+  color: rgba(39, 38, 38, 0.8);
+  letter-spacing: 1px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.remove {
+  display: inline-block;
+  border-left: 1px solid rgba(39, 38, 38, 0.2);
+  font-size: 11px;
+  padding: 0 3px;
+  color: rgba(39, 38, 38, 0.9);
+  font-weight: bold;
+}
 /* Customize the label (the container) */
 .custom_checkbox {
   display: block;

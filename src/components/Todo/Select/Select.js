@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
+import Input from "./Input";
 
 class Select extends Component {
   static defaultProps = {
@@ -8,6 +9,7 @@ class Select extends Component {
     selectedValue: [],
     name: "",
     chips: false,
+    placeholder: "Please Select...",
     placeholderChips: false,
     menuOpen: false,
     deselect: () => {},
@@ -100,15 +102,36 @@ class Select extends Component {
     if (chips && selectedValue.length > 0) {
       return <div className="chips_container">{this.createChips()}</div>;
     }
-    return null;
+    return "No Option Selected!!";
+  };
+
+  createChipsText = () => {
+    const { selectedValue, placeholder } = this.props;
+
+    let chips = this.props.placeholder;
+    chips = selectedValue
+      .filter((option) => option.isChecked === true)
+      .map((option) => {
+        return (
+          <span
+            key={option.id}
+            className="chip-content"
+            onClick={() => this.onDeselect(option)}
+          >
+            {option.value} <i className="remove">X</i>
+          </span>
+        );
+      });
+
+    return chips;
   };
 
   renderPlaceholderChips = () => {
-    const { chips, selectedValue } = this.props;
-    if (chips && selectedValue.length > 0) {
-      return this.createChips();
+    const { chips, selectedValue, placeholderChips } = this.props;
+    if (placeholderChips && chips && selectedValue.length > 0) {
+      return this.createChipsText();
     }
-    return null;
+    return this.props.placeholder;
   };
 
   // create dropdown option with checkbox
@@ -148,7 +171,7 @@ class Select extends Component {
 
   // create options with checkboxes
   createCheckboxes = () => {
-    const { menuOpen, placeholderChips } = this.props;
+    const { menuOpen, placeholderChips, selectedValue } = this.props;
     const { isMenuOpen, isOpen } = this.state;
     return (
       <div
@@ -157,21 +180,24 @@ class Select extends Component {
         onClick={() => (menuOpen ? null : this.onClickinSideToShowPopup)}
       >
         {this.renderChips()}
+
         <div className="custom_select">
           <div className="select_box">
             <div
               className="input-group"
               onClick={() => (menuOpen ? null : this.onClickinSideToShowPopup)}
             >
-              <input
+              {/* <input
                 className="input_dropdown"
-                placeholder={
-                  placeholderChips
-                    ? this.renderPlaceholderChips()
-                    : "Choose your interests"
-                }
+                type="text"
+                placeholder={this.props.placeholder}
+                onChange={() => {}}
+                value={this.renderPlaceholderChips()}
               ></input>
-              <div className="indicator">{this.indicator()}</div>
+              <div className="indicator">{this.indicator()}</div> */}
+              <Input indicator={this.indicator()}>
+                {this.renderPlaceholderChips()}
+              </Input>
             </div>
 
             <fieldset
@@ -205,7 +231,7 @@ class Select extends Component {
   };
 
   render() {
-    console.log("selectedValue from select: ", this.props.selectedValue);
+    console.log("placeholderChips: ", this.renderPlaceholderChips());
     return <div className="select_container">{this.renderSelect()}</div>;
   }
 }
