@@ -7,12 +7,18 @@ const Checkbox = (props) => {
   }
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      role="option"
+      aria-selected={props.isChecked}
+      aria-posinset={props.index}
+    >
       <label className="custom_checkbox" area-label={props.label}>
         <input
           type="checkbox"
           name={props.label}
           checked={props.isChecked}
+          aria-checked={props.isChecked}
           onChange={props.onChange}
           value={props.label}
           className="select_input"
