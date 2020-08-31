@@ -63,7 +63,8 @@ class App extends Component {
 
         <Select
           isMultiple
-          menuOpen
+          focus
+          blur
           chips
           placeholderChips
           options={INTERESTS}

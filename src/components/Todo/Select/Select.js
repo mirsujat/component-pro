@@ -11,7 +11,9 @@ class Select extends Component {
     chips: false,
     placeholder: "Please Select...",
     placeholderChips: false,
-    menuOpen: false,
+    menuOpen: false, //keeps the menu open when select items
+    focus: false,
+    blur: false,
     deselect: () => {},
   };
   constructor(props) {
@@ -23,6 +25,7 @@ class Select extends Component {
       isMenuOpen: false,
     };
     this.toggleContainer = React.createRef();
+    this.timeOutId = null;
   }
 
   // Life cycle method
@@ -59,6 +62,42 @@ class Select extends Component {
     ) {
       this.setState({ isOpen: false });
     }
+  };
+
+  //Handler method for onFocus
+  onClickHandler = () => {
+    const { focus, blur } = this.props;
+    if (focus && blur) {
+      this.setState((currentState) => ({
+        isOpen: !currentState.isOpen,
+      }));
+    }
+    return;
+  };
+
+  // We close the popover on the next tick by using setTimeout.
+  // This is necessary because we need to first check if
+  // another child of the element has received focus as
+  // the blur event fires prior to the new focus event.
+  onBlurHandler = () => {
+    const { focus, blur } = this.props;
+    if (focus && blur) {
+      this.timeOutId = setTimeout(() => {
+        this.setState({
+          isOpen: false,
+        });
+      });
+    }
+    return;
+  };
+
+  // If a child receives focus, do not close the popover.
+  onFocusHandler = () => {
+    const { focus, blur } = this.props;
+    if (focus && blur) {
+      clearTimeout(this.timeOutId);
+    }
+    return;
   };
 
   //menu open
@@ -133,7 +172,7 @@ class Select extends Component {
     if (placeholderChips && chips && selectedValue.length > 0) {
       return this.createChipsText();
     }
-    return this.props.placeholder;
+    return <span className="placeholder-text">{this.props.placeholder}</span>;
   };
 
   // create dropdown option with checkbox
@@ -181,6 +220,8 @@ class Select extends Component {
         className="multiselect_container"
         ref={this.toggleContainer}
         onClick={() => (menuOpen ? null : this.onClickinSideToShowPopup)}
+        onBlur={this.onBlurHandler}
+        onFocus={this.onFocusHandler}
       >
         {this.renderChips()}
 
@@ -198,7 +239,11 @@ class Select extends Component {
                 value={this.renderPlaceholderChips()}
               ></input>
               <div className="indicator">{this.indicator()}</div> */}
-              <Input indicator={this.indicator()}>
+              <Input
+                indicator={this.indicator()}
+                open={isOpen || isMenuOpen}
+                onClick={this.onClickHandler}
+              >
                 {this.renderPlaceholderChips()}
               </Input>
             </div>

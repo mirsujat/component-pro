@@ -198,6 +198,16 @@ fieldset {
 .placeholder:hover {
   border: 1px solid rgba(119, 118, 118, 0.8);
 }
+button {
+  text-align: center;
+  background-color: #fff;
+}
+.placeholder-text {
+  display: inline-block;
+  text-align: center;
+  padding: 6px 0px;
+  color: #717171;
+}
 
 .chips-text {
   display: flex;
