@@ -105,8 +105,9 @@ class Select extends Component {
     return "No Option Selected!!";
   };
 
+  //create chips for placeholder
   createChipsText = () => {
-    const { selectedValue, placeholder } = this.props;
+    const { selectedValue } = this.props;
 
     let chips = this.props.placeholder;
     chips = selectedValue
@@ -126,6 +127,7 @@ class Select extends Component {
     return chips;
   };
 
+  //render placeholder chips base on placeholderChips props
   renderPlaceholderChips = () => {
     const { chips, selectedValue, placeholderChips } = this.props;
     if (placeholderChips && chips && selectedValue.length > 0) {
@@ -152,6 +154,7 @@ class Select extends Component {
     return renderOptionElem;
   };
 
+  //Dropdown indicator
   indicator = () => {
     const { isMenuOpen, isOpen } = this.state;
     let indicator = (
@@ -171,7 +174,7 @@ class Select extends Component {
 
   // create options with checkboxes
   createCheckboxes = () => {
-    const { menuOpen, placeholderChips, selectedValue } = this.props;
+    const { menuOpen } = this.props;
     const { isMenuOpen, isOpen } = this.state;
     return (
       <div

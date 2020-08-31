@@ -195,6 +195,10 @@ fieldset {
   max-height: auto;
   border: 1px solid rgba(119, 118, 118, 0.4);
 }
+.placeholder:hover {
+  border: 1px solid rgba(119, 118, 118, 0.8);
+}
+
 .chips-text {
   display: flex;
   justify-content: center;
