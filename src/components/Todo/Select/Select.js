@@ -22,7 +22,7 @@ class Select extends Component {
     this.state = {
       options: props.options,
       isOpen: false,
-      menuAlive: false,
+      alive: false,
     };
     this.toggleContainer = React.createRef();
     this.timeOutId = null;
@@ -68,9 +68,9 @@ class Select extends Component {
 
   //Handler method for onFocus
   onClickHandler = () => {
-    this.setState((currentState) => ({
-      isOpen: !currentState.isOpen,
-    }));
+    this.setState({
+      isOpen: true,
+    });
   };
 
   // We close the popover on the next tick by using setTimeout.
@@ -95,7 +95,7 @@ class Select extends Component {
     const { menuAlive } = this.props;
     if (menuAlive) {
       this.setState((prevtState) => ({
-        menuAlive: !prevtState.menuAlive,
+        alive: !prevtState.alive,
       }));
     }
     return;
@@ -170,16 +170,21 @@ class Select extends Component {
     ) {
       return this.createChipsText();
     }
-    return <span className="placeholder-text">{this.props.placeholder}</span>;
+    return (
+      <span className="placeholder-text" aria-labelledby="placeholder">
+        {this.props.placeholder}
+      </span>
+    );
   };
 
   // create dropdown option with checkbox
-  createCheckbox = (option) => (
+  createCheckbox = (option, i) => (
     <Checkbox
       label={option.value}
       isChecked={option.isChecked}
       onChange={this.props.onChange}
       key={option.id}
+      index={i}
     />
   );
 
@@ -193,15 +198,25 @@ class Select extends Component {
 
   //Dropdown indicator
   indicator = () => {
-    const { menuAlive, isOpen } = this.state;
+    const { alive, isOpen } = this.state;
     let indicator = (
-      <span className="arrow-down" onClick={this.onMenuOpen}>
+      <span
+        className="arrow-down"
+        onClick={this.onMenuOpen}
+        type="image"
+        aria-label="Popup Opener"
+      >
         &#10093;
       </span>
     );
-    if (isOpen || menuAlive) {
+    if (isOpen || alive) {
       indicator = (
-        <span className="arrow-up" onClick={this.onMenuOpen}>
+        <span
+          className="arrow-up"
+          onClick={this.onMenuOpen}
+          type="image"
+          aria-label="Popup Close"
+        >
           &#10092;
         </span>
       );
@@ -212,7 +227,7 @@ class Select extends Component {
   // create options with checkboxes
   createCheckboxes = () => {
     const { menuAlive, focus, blur } = this.props;
-    const { isOpen } = this.state;
+    const { isOpen, alive } = this.state;
     return (
       <div
         className="multiselect_container"
@@ -222,10 +237,20 @@ class Select extends Component {
         }
         onBlur={this.onBlurHandler}
         onFocus={this.onFocusHandler}
+        role="combobox"
+        aria-owns="IDREF"
+        aria-controls="IDREF"
+        aria-expanded={isOpen || alive}
       >
         {this.renderChips()}
 
-        <div className="custom_select">
+        <div
+          className="custom_select"
+          role="combobox"
+          aria-owns="IDREF"
+          aria-controls="IDREF"
+          aria-expanded={isOpen || alive}
+        >
           <div className="select_box">
             <div
               className="input-group"
@@ -253,6 +278,7 @@ class Select extends Component {
 
               <fieldset
                 className={menuAlive || isOpen ? "option_box" : "hidden"}
+                aria-flowto="option"
               >
                 {isOpen || menuAlive ? this.renderOptions() : null}
               </fieldset>
