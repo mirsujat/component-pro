@@ -189,6 +189,8 @@ fieldset {
 /* placeholder */
 .placeholder {
   display: flex;
+  justify-content: left;
+  align-items: center;
   flex-wrap: wrap;
   width: 100%;
   min-height: 32px;

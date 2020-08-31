@@ -11,7 +11,7 @@ class Select extends Component {
     chips: false,
     placeholder: "Please Select...",
     placeholderChips: false,
-    menuOpen: false, //keeps the menu open when select items
+    menuAlive: false, //keeps the menu open when select items
     focus: false,
     blur: false,
     deselect: () => {},
@@ -22,7 +22,7 @@ class Select extends Component {
     this.state = {
       options: props.options,
       isOpen: false,
-      isMenuOpen: false,
+      menuAlive: false,
     };
     this.toggleContainer = React.createRef();
     this.timeOutId = null;
@@ -30,7 +30,8 @@ class Select extends Component {
 
   // Life cycle method
   componentDidMount = () => {
-    if (this.props.menuOpen) {
+    const { menuAlive, focus, blur } = this.props;
+    if (menuAlive || focus || blur) {
       return;
     } else {
       window.addEventListener("click", this.onClickOutSideToHidePopup);
@@ -39,7 +40,8 @@ class Select extends Component {
   };
   // Life cycle method
   componentWillUnmount = () => {
-    if (this.props.menuOpen) {
+    const { menuAlive, focus, blur } = this.props;
+    if (menuAlive || focus || blur) {
       return;
     } else {
       window.removeEventListener("click", this.onClickOutSideToHidePopup);
@@ -66,13 +68,9 @@ class Select extends Component {
 
   //Handler method for onFocus
   onClickHandler = () => {
-    const { focus, blur } = this.props;
-    if (focus && blur) {
-      this.setState((currentState) => ({
-        isOpen: !currentState.isOpen,
-      }));
-    }
-    return;
+    this.setState((currentState) => ({
+      isOpen: true,
+    }));
   };
 
   // We close the popover on the next tick by using setTimeout.
@@ -80,31 +78,27 @@ class Select extends Component {
   // another child of the element has received focus as
   // the blur event fires prior to the new focus event.
   onBlurHandler = () => {
-    const { focus, blur } = this.props;
-    if (focus && blur) {
-      this.timeOutId = setTimeout(() => {
-        this.setState({
-          isOpen: false,
-        });
+    this.timeOutId = setTimeout(() => {
+      this.setState({
+        isOpen: false,
       });
-    }
-    return;
+    }, 200);
   };
 
   // If a child receives focus, do not close the popover.
   onFocusHandler = () => {
-    const { focus, blur } = this.props;
-    if (focus && blur) {
-      clearTimeout(this.timeOutId);
-    }
-    return;
+    clearTimeout(this.timeOutId);
   };
 
   //menu open
   onMenuOpen = () => {
-    this.setState((prevtState) => ({
-      isMenuOpen: !prevtState.isMenuOpen,
-    }));
+    const { menuAlive } = this.props;
+    if (menuAlive) {
+      this.setState((prevtState) => ({
+        menuAlive: !prevtState.menuAlive,
+      }));
+    }
+    return;
   };
 
   //deselect option
@@ -138,12 +132,12 @@ class Select extends Component {
   //render chips based on chips props
   renderChips = () => {
     const { chips, selectedValue } = this.props;
-    if (chips && selectedValue.length > 0) {
+
+    if (chips && selectedValue.find((option) => option.isChecked === true)) {
       return <div className="chips_container">{this.createChips()}</div>;
     }
-    return "No Option Selected!!";
+    return;
   };
-
   //create chips for placeholder
   createChipsText = () => {
     const { selectedValue } = this.props;
@@ -169,7 +163,11 @@ class Select extends Component {
   //render placeholder chips base on placeholderChips props
   renderPlaceholderChips = () => {
     const { chips, selectedValue, placeholderChips } = this.props;
-    if (placeholderChips && chips && selectedValue.length > 0) {
+    if (
+      placeholderChips &&
+      chips &&
+      selectedValue.find((option) => option.isChecked === true)
+    ) {
       return this.createChipsText();
     }
     return <span className="placeholder-text">{this.props.placeholder}</span>;
@@ -195,13 +193,13 @@ class Select extends Component {
 
   //Dropdown indicator
   indicator = () => {
-    const { isMenuOpen, isOpen } = this.state;
+    const { menuAlive, isOpen } = this.state;
     let indicator = (
       <span className="arrow-down" onClick={this.onMenuOpen}>
         &#10093;
       </span>
     );
-    if (isOpen || isMenuOpen) {
+    if (isOpen || menuAlive) {
       indicator = (
         <span className="arrow-up" onClick={this.onMenuOpen}>
           &#10092;
@@ -213,13 +211,15 @@ class Select extends Component {
 
   // create options with checkboxes
   createCheckboxes = () => {
-    const { menuOpen } = this.props;
-    const { isMenuOpen, isOpen } = this.state;
+    const { menuAlive, focus, blur, selectedValue } = this.props;
+    const { isOpen } = this.state;
     return (
       <div
         className="multiselect_container"
         ref={this.toggleContainer}
-        onClick={() => (menuOpen ? null : this.onClickinSideToShowPopup)}
+        onClick={() =>
+          menuAlive || focus || blur ? null : this.onClickinSideToShowPopup
+        }
         onBlur={this.onBlurHandler}
         onFocus={this.onFocusHandler}
       >
@@ -229,7 +229,11 @@ class Select extends Component {
           <div className="select_box">
             <div
               className="input-group"
-              onClick={() => (menuOpen ? null : this.onClickinSideToShowPopup)}
+              onClick={() =>
+                menuAlive || focus || blur
+                  ? null
+                  : this.onClickinSideToShowPopup
+              }
             >
               {/* <input
                 className="input_dropdown"
@@ -241,18 +245,18 @@ class Select extends Component {
               <div className="indicator">{this.indicator()}</div> */}
               <Input
                 indicator={this.indicator()}
-                open={isOpen || isMenuOpen}
+                open={isOpen || menuAlive}
                 onClick={this.onClickHandler}
               >
                 {this.renderPlaceholderChips()}
               </Input>
-            </div>
 
-            <fieldset
-              className={isMenuOpen || isOpen ? "option_box" : "hidden"}
-            >
-              {isOpen || isMenuOpen ? this.renderOptions() : null}
-            </fieldset>
+              <fieldset
+                className={menuAlive || isOpen ? "option_box" : "hidden"}
+              >
+                {isOpen || menuAlive ? this.renderOptions() : null}
+              </fieldset>
+            </div>
           </div>
         </div>
       </div>
@@ -279,7 +283,6 @@ class Select extends Component {
   };
 
   render() {
-    console.log("placeholderChips: ", this.renderPlaceholderChips());
     return <div className="select_container">{this.renderSelect()}</div>;
   }
 }

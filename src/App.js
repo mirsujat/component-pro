@@ -55,7 +55,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("options form App: ", this.state.options);
     return (
       <div data-testid="app" className="app">
         <h1>Hello World</h1>
