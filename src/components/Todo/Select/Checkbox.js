@@ -8,7 +8,7 @@ const Checkbox = (props) => {
 
   return (
     <div className={className}>
-      <label className="custom_checkbox">
+      <label className="custom_checkbox" area-label={props.label}>
         <input
           type="checkbox"
           name={props.label}
