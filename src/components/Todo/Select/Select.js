@@ -68,9 +68,13 @@ class Select extends Component {
 
   //Handler method for onFocus
   onClickHandler = () => {
-    this.setState((currentState) => ({
-      isOpen: true,
-    }));
+    const { focus, blur } = this.props;
+    if (focus && blur) {
+      this.setState((currentState) => ({
+        isOpen: true,
+      }));
+    }
+    return;
   };
 
   // We close the popover on the next tick by using setTimeout.
@@ -78,16 +82,24 @@ class Select extends Component {
   // another child of the element has received focus as
   // the blur event fires prior to the new focus event.
   onBlurHandler = () => {
-    this.timeOutId = setTimeout(() => {
-      this.setState({
-        isOpen: false,
-      });
-    }, 200);
+    const { focus, blur } = this.props;
+    if ((focus, blur)) {
+      this.timeOutId = setTimeout(() => {
+        this.setState({
+          isOpen: false,
+        });
+      }, 200);
+    }
+    return;
   };
 
   // If a child receives focus, do not close the popover.
   onFocusHandler = () => {
-    clearTimeout(this.timeOutId);
+    const { focus, blur } = this.props;
+    if (focus && blur) {
+      clearTimeout(this.timeOutId);
+    }
+    return;
   };
 
   //menu open
