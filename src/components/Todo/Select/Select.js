@@ -211,7 +211,7 @@ class Select extends Component {
 
   // create options with checkboxes
   createCheckboxes = () => {
-    const { menuAlive, focus, blur, selectedValue } = this.props;
+    const { menuAlive, focus, blur } = this.props;
     const { isOpen } = this.state;
     return (
       <div
