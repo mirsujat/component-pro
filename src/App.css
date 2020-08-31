@@ -215,8 +215,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 15px;
-  align-items: left;
+  padding: 0 3px;
 }
 .chip-content {
   display: inline-block;
